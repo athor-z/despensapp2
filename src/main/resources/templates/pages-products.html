@@ -50,7 +50,7 @@
                     <!-- Logo -->
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
-                        <a href="index" class="logo">
+                        <a th:href="@{/}" class="logo">
                             <!-- Logo icon -->
                             <b class="logo-icon">
                                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -354,13 +354,13 @@
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
-                                    <a th:href="@{/pages-pantry}" class="sidebar-link">
+                                    <a th:href="@{/pantry}" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
                                         <span class="hide-menu"> Mi Despensa </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a th:href="@{/pages-products}" class="sidebar-link">
+                                    <a th:href="@{/products}" class="sidebar-link">
                                         <i class="mdi mdi-adjust"></i>
                                         <span class="hide-menu"> Lista de Productos </span>
                                     </a>
@@ -429,7 +429,7 @@
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a th:href="@{/index}">Home</a>
+                                        <a th:href="@{/}">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">Productos</li>
                                 </ol>
@@ -450,41 +450,41 @@
                 <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-12">
+                    	<!-- ============================================================== -->
+                		<!-- TABLA DE PRODUCTOS BD DESPENSAPP -->
+                		<!-- ============================================================== -->
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Lista de Productos en BD</h4>
-                                <h6 class="card-subtitle">Estos son los productos disponibles en nuestra base de datos DespensApp</h6>
-                                <div class="table-responsive">
-                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addModal">Añadir Nuevo Producto</button>
-									<table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="50">
-                                        <thead>
-                                            <tr>
-                                                <th>Id</th>
-                                                <th>Nombre de Producto</th>
-                                                <th>Unidad de Medida</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr th:each="product:${products}">
-                                                <td th:text="${product.id}"></td>
-                                                <td th:text="${product.name}"></td>
-                                                <td th:text="${product.measureUnit.name}"></td>
-                                                <td>
-												<div class="btn-group">
-												<!--<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" th:data-id="${product.id}" th:data-name="${product.name}" th:data-measureunitid="${product.measureUnit.id}" data-target="#editModal" id="editButton-${product.id}">Modificar</button>-->
-													<a th:href="@{/products/findById/(id=${product.id})}"class="btn btn-primary" id="editButton">Modificar</a>
-													<!--<td>
-  														<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" th:data-id="${product.id}" th:data-name="${product.name}" th:data-measureunitid="${product.measureUnit.id}" data-target="#editModal">Modificar</button>													
-													</td>-->
-												</div>
-												</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <h1 class="card-title">Lista de Productos</h1>
+                                <h6 class="card-subtitle">Estos son los productos disponibles en nuestra base de datos DespensApp, agrega las que tengas en tu despensa para ayudarte a gestionarla</h6>
+							    <div class="container table-responsive">
+							    <!--<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addModal">Añadir Nuevo Producto</button>-->
+							        <!--<h1>Lista de Productos</h1>-->
+							        <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="50">
+							            <thead>
+							                <tr>
+							                    <th>ID</th>
+							                    <th>Nombre del Producto</th>
+							                    <th>Unidad de Medida</th>
+							                </tr>
+							            </thead>
+							            <tbody>
+							                <!-- Itera sobre la lista de productos y muestra los detalles -->
+							                <tr th:each="product : ${products}">
+							                    <td th:text="${product.id}"></td>
+							                    <td th:text="${product.name}"></td>
+							                    <td th:text="${product.measureUnit}"></td>
+							                </tr>
+							            </tbody>
+							        </table>
+							        <!--<a href="/products/add" class="btn btn-primary">Añadir Nuevo Producto</a>-->
+							    </div>
                             </div>
                         </div>
-                     
+                        <!-- ============================================================== -->
+                		<!-- FIN TABLA DE PRODUCTOS BD DESPENSAPP -->
+                		<!-- ============================================================== -->
+                		
                         <!-- Column -->
                         <!--
                         <div class="card">

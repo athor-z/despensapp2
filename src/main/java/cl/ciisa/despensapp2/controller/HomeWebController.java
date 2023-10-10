@@ -16,7 +16,7 @@ import cl.ciisa.despensapp2.services.RecipeService;
 import cl.ciisa.despensapp2.services.UserService;
 
 @Controller
-public class HomeController {
+public class HomeWebController {
 //NOTA: Los Model se deben añadir en los controladores de las vistas para que los valores sean mostrados en la pagina (FrontEnd)
     @Autowired
     private ProductService productService;

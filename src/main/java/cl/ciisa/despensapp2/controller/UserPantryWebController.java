@@ -20,7 +20,7 @@ import cl.ciisa.despensapp2.services.ProductPantryService;
 import cl.ciisa.despensapp2.services.UserService;
 
 @Controller
-public class UserPantryController {
+public class UserPantryWebController {
 
     @Autowired
     private ProductPantryService productPantryService;
