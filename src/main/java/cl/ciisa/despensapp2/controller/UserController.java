@@ -13,6 +13,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -99,6 +102,24 @@ public class UserController {
     @GetMapping("/restriccion-alimentaria/{restriction}")
     public List<User> findUsersByRestriction(@PathVariable FoodRestriction restriction) {
         return userService.findUsersByRestriction(restriction);
+    }
+    
+    
+    @GetMapping("/dashboard")
+    public String showDashboard(Model model) {
+        // Agrega los datos que necesitas mostrar en la vista
+        model.addAttribute("message", "Hello, User! Welcome to your dashboard.");
+        // Devuelve el nombre de la vista
+        return "dashboard";
+    }
+    
+    //Prestemosle ojo a esta funcion
+    @GetMapping("/profile")
+    public String userProfile(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName(); // Obtiene el nombre de usuario del usuario autenticado
+        // Realiza acciones basadas en el usuario autenticado
+        return "profile"; // Reemplaza con el nombre de tu vista Thymeleaf para el perfil de usuario
     }
 }
 

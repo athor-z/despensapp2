@@ -51,4 +51,8 @@ public class ProductService {
                 .orElseThrow(() -> new EntityNotFoundException("Product pantry with id " + productPantryId + " not found"));
         return productPantry.getQuantity();
     }
+    
+    public Long getCountOfProducts() {
+        return productRepository.count();
+    }
 }

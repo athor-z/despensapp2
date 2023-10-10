@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,7 +51,10 @@ public class UserService{
     public Optional<User> findUserById(Long id) {
         return userRepository.findById(id);
     }
-
+    //NUEVO
+    public String findEmailByUsername(String userName) {
+        return userRepository.findUserByUsername(userName).getEmail();
+    }
     public User updateUser(User user) {
         return userRepository.save(user);
     }

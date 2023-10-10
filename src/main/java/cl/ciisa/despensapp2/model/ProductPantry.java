@@ -17,4 +17,13 @@ public class ProductPantry {
     private ProductPantryId id;
 
     private int quantity;
+    
+    //NUEVO
+    @ManyToOne
+    @JoinColumn(name = "pantry_id", insertable = false, updatable = false)
+    private Pantry pantry;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", insertable = false, updatable = false)
+    private Product product;
 }

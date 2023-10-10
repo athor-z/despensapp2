@@ -19,9 +19,15 @@ public class Recipe {
     private Long id;
 
     private String name;
-
+    
+    @Column(columnDefinition = "TEXT")
     private String image;
 
+    private String shortDescription;
+    
+    private int portions; //Cantidad de porciones
+    
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Enumerated(EnumType.STRING)
@@ -31,9 +37,11 @@ public class Recipe {
     private FoodRestriction restriction;
 
     // constructores
-    public Recipe(String name, String image, String description, RecipeDifficulty difficulty, FoodRestriction restriction) {
+    public Recipe(String name, String image, String shortDescription, int portions, String description, RecipeDifficulty difficulty, FoodRestriction restriction) {
         this.name = name;
         this.image = image;
+        this.shortDescription = shortDescription;
+        this.portions = portions;
         this.description = description;
         this.difficulty = difficulty;
         this.restriction = restriction;

@@ -58,4 +58,15 @@ public class RecipeService {
 	public List<Recipe> getRecipesByRestriction(FoodRestriction restriction) {
 	    return recipeRepository.findByRestriction(restriction);
 	}
+	
+    public Long getCountOfRecipes() {
+        return recipeRepository.count();
+    }
+    
+    /*
+    public List<Recipe> getLatestRecipes(int count) {
+        // Utiliza el repositorio para obtener las últimas recetas
+        return recipeRepository.findTopNByOrderByIdDesc(count);
+    }
+    */
 }

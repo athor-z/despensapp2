@@ -30,4 +30,15 @@ public class ProductPantryService {
     public ProductPantry getById(ProductPantryId id) {
         return productPantryRepository.findById(id).orElse(null);
     }
+    //NUEVO
+    public long countProductsInPantryByUsername(String username) {
+        return productPantryRepository.countByPantryUserUsername(username);
+    }
+    //Otro NUEVO
+    public List<ProductPantry> getProductsInPantryByUsername(String username) {
+        return productPantryRepository.findByPantryUserUsername(username);
+    }
+    //public long getCountOfProductsInPantryByUsername(String username) {
+    //    return productPantryRepository.countByUserUsername(username);
+    //}
 }

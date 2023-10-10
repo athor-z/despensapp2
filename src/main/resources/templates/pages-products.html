@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/images/favicon.png">
+    <title>DespensApp - Tu ayuda en el dia a dia</title>
+    <link href="../../assets/libs/footable/css/footable.core.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../../dist/css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader (Al momento de cargar la página) - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Topbar header - style you can find in pages.scss -->
+        <!-- ============================================================== -->
+        <header class="topbar">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+                <div class="navbar-header">
+                    <!-- This is for the sidebar toggle which is visible on mobile only -->
+                    <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
+                        <i class="ti-menu ti-close"></i>
+                    </a>
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-brand">
+                        <a href="index" class="logo">
+                            <!-- Logo icon -->
+                            <b class="logo-icon">
+                                <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+                                <!-- Dark Logo icon -->
+                                <img src="../../assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                                <!-- Light Logo icon -->
+                                <img src="../../assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                            </b>
+                            <!--End Logo icon -->
+                            <!-- Logo text -->
+                            <span class="logo-text">
+                                <!-- dark Logo text -->
+                                <img src="../../assets/images/logo-despensapp-text.png" alt="homepage" class="dark-logo" />
+                                <!-- Light Logo text -->
+                                <img src="../../assets/images/logo-despensapp-light-text.png" class="light-logo" alt="homepage" />
+                            </span>
+                        </a>
+                        <a class="sidebartoggler d-none d-md-block" href="javascript:void(0)" data-sidebartype="mini-sidebar">
+                            <i class="mdi mdi-toggle-switch mdi-toggle-switch-off font-20"></i>
+                        </a>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <!-- ============================================================== -->
+                    <!-- Toggle which is visible on mobile only -->
+                    <!-- ============================================================== -->
+                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="ti-more"></i>
+                    </a>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End Logo -->
+                <!-- ============================================================== -->
+                <div class="navbar-collapse collapse" id="navbarSupportedContent">
+                    <!-- ============================================================== -->
+                    <!-- toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-left mr-auto">
+                        <!-- <li class="nav-item d-none d-md-block">
+                            <a class="nav-link sidebartoggler waves-effect waves-light" href="javascript:void(0)" data-sidebartype="mini-sidebar">
+                                <i class="mdi mdi-menu font-24"></i>
+                            </a>
+                        </li> -->
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item search-box">
+                            <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
+                                <div class="d-flex align-items-center">
+                                    <i class="mdi mdi-magnify font-20 mr-1"></i>
+                                    <div class="ml-1 d-none d-sm-block">
+                                        <span>Busca tu receta...</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <form class="app-search position-absolute">
+                                <input type="text" class="form-control" placeholder="Qué te gustaría preparar hoy? - Escribe algo y dale Enter... ">
+                                <a class="srh-btn">
+                                    <i class="ti-close"></i>
+                                </a>
+                            </form>
+                        </li>
+                    </ul>
+                    <!-- ============================================================== -->
+                    <!-- Right side toggle and nav items -->
+                    <!-- ============================================================== -->
+                    <ul class="navbar-nav float-right">
+                        <!-- ============================================================== -->
+                        <!-- Messages -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="font-22 mdi mdi-email-outline"></i>
+
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown" aria-labelledby="2">
+                                <span class="with-arrow">
+                                    <span class="bg-danger"></span>
+                                </span>
+                                <ul class="list-style-none">
+                                    <li>
+                                        <div class="drop-title text-white bg-danger">
+                                            <h4 class="m-b-0 m-t-5">5 New</h4>
+                                            <span class="font-light">Messages</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="message-center message-body">
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="user-img">
+                                                    <img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle">
+                                                    <span class="profile-status online pull-right"></span>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Pavan kumar</h5>
+                                                    <span class="mail-desc">Just see the my admin!</span>
+                                                    <span class="time">9:30 AM</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="user-img">
+                                                    <img src="../../assets/images/users/2.jpg" alt="user" class="rounded-circle">
+                                                    <span class="profile-status busy pull-right"></span>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Sonu Nigam</h5>
+                                                    <span class="mail-desc">I've sung a song! See you at</span>
+                                                    <span class="time">9:10 AM</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="user-img">
+                                                    <img src="../../assets/images/users/3.jpg" alt="user" class="rounded-circle">
+                                                    <span class="profile-status away pull-right"></span>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Arijit Sinh</h5>
+                                                    <span class="mail-desc">I am a singer!</span>
+                                                    <span class="time">9:08 AM</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="user-img">
+                                                    <img src="../../assets/images/users/4.jpg" alt="user" class="rounded-circle">
+                                                    <span class="profile-status offline pull-right"></span>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Pavan kumar</h5>
+                                                    <span class="mail-desc">Just see the my admin!</span>
+                                                    <span class="time">9:02 AM</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-center link text-dark" href="javascript:void(0);">
+                                            <b>See all e-Mails</b>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- End Messages -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- Comment -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown border-right">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="mdi mdi-bell-outline font-22"></i>
+                                <span class="badge badge-pill badge-info noti">3</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
+                                <span class="with-arrow">
+                                    <span class="bg-primary"></span>
+                                </span>
+                                <ul class="list-style-none">
+                                    <li>
+                                        <div class="drop-title bg-primary text-white">
+                                            <h4 class="m-b-0 m-t-5">4 New</h4>
+                                            <span class="font-light">Notifications</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="message-center notifications">
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="btn btn-danger btn-circle">
+                                                    <i class="fa fa-link"></i>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Luanch Admin</h5>
+                                                    <span class="mail-desc">Just see the my new admin!</span>
+                                                    <span class="time">9:30 AM</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="btn btn-success btn-circle">
+                                                    <i class="ti-calendar"></i>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Event today</h5>
+                                                    <span class="mail-desc">Just a reminder that you have event</span>
+                                                    <span class="time">9:10 AM</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="btn btn-info btn-circle">
+                                                    <i class="ti-settings"></i>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Settings</h5>
+                                                    <span class="mail-desc">You can customize this template as you want</span>
+                                                    <span class="time">9:08 AM</span>
+                                                </div>
+                                            </a>
+                                            <!-- Message -->
+                                            <a href="javascript:void(0)" class="message-item">
+                                                <span class="btn btn-primary btn-circle">
+                                                    <i class="ti-user"></i>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">Pavan kumar</h5>
+                                                    <span class="mail-desc">Just see the my admin!</span>
+                                                    <span class="time">9:02 AM</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link text-center m-b-5 text-dark" href="javascript:void(0);">
+                                            <strong>Check all notifications</strong>
+                                            <i class="fa fa-angle-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- End Comment -->
+                        <!-- ============================================================== -->
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <img src="../../assets/images/users/2.jpg" alt="user" class="rounded-circle" width="40">
+                                <span class="m-l-5 font-medium d-none d-sm-inline-block">Usuario DespensApp <i class="mdi mdi-chevron-down"></i></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                                <span class="with-arrow">
+                                    <span class="bg-primary"></span>
+                                </span>
+                                <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
+                                    <div class="">
+                                        <img src="../../assets/images/users/2.jpg" alt="user" class="rounded-circle" width="60">
+                                    </div>
+                                    <div class="m-l-10">
+                                        <h4 class="m-b-0">Usuario DespensApp</h4>
+                                        <p class=" m-b-0">usuario@despensapp.cl</p>
+                                    </div>
+                                </div>
+                                <div class="profile-dis scrollable">
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="ti-user m-r-5 m-l-5"></i> Mi Perfil</a>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="ti-wallet m-r-5 m-l-5"></i> Mi Despensa</a>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="ti-settings m-r-5 m-l-5"></i> Configuracion de Cuenta</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="javascript:void(0)">
+                                        <i class="fa fa-power-off m-r-5 m-l-5"></i> Cerrar Sesion</a>
+                                    <div class="dropdown-divider"></div>
+                                </div>
+                                <div class="p-l-30 p-10">
+                                    <a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">Ver Perfil</a>
+                                </div>
+                            </div>
+                        </li>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        <!-- ============================================================== -->
+        <!-- End Topbar header -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <aside class="left-sidebar">
+            <!-- Sidebar scroll-->
+            <div class="scroll-sidebar">
+                <!-- Sidebar navigation-->
+                <nav class="sidebar-nav">
+                    <ul id="sidebarnav">
+                        <li class="nav-small-cap">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                            <span class="hide-menu">Mi DespensApp</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class="mdi mdi-av-timer"></i>
+                                <span class="hide-menu">Dashboard </span>
+                                <span class="badge badge-pill badge-info ml-auto m-r-15">3</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item">
+                                    <a th:href="@{/pages-pantry}" class="sidebar-link">
+                                        <i class="mdi mdi-adjust"></i>
+                                        <span class="hide-menu"> Mi Despensa </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a th:href="@{/pages-products}" class="sidebar-link">
+                                        <i class="mdi mdi-adjust"></i>
+                                        <span class="hide-menu"> Lista de Productos </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a th:href="@{/pages-users}" class="sidebar-link">
+                                        <i class="mdi mdi-adjust"></i>
+                                        <span class="hide-menu"> Usuarios (SOLO TESTING!!) </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class="mdi mdi-tune"></i>
+                                <span class="hide-menu">¿Qué cocino hoy? </span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item">
+                                    <a th:href="@{/pages-recipes}" class="sidebar-link">
+                                        <i class="mdi mdi-view-quilt"></i>
+                                        <span class="hide-menu"> Recetas DespensApp </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-small-cap">
+                            <i class="mdi mdi-dots-horizontal"></i>
+                            <span class="hide-menu">Mi Sesión</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../../docs/documentation.html" aria-expanded="false">
+                                <i class="mdi mdi-content-paste"></i>
+                                <span class="hide-menu">Documentation</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="authentication-login1.html" aria-expanded="false">
+                                <i class="mdi mdi-directions"></i>
+                                <span class="hide-menu">Cerrar Sesión</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <!-- End Sidebar navigation -->
+            </div>
+            <!-- End Sidebar scroll-->
+        </aside>
+        <!-- ============================================================== -->
+        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper  -->
+        <!-- ============================================================== -->
+        <div class="page-wrapper">
+            <!-- ============================================================== -->
+            <!-- Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <div class="page-breadcrumb">
+                <div class="row">
+                    <div class="col-5 align-self-center">
+                        <h4 class="page-title">Productos</h4>
+                    </div>
+                    <div class="col-7 align-self-center">
+                        <div class="d-flex align-items-center justify-content-end">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item">
+                                        <a th:href="@{/index}">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">Productos</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Bread crumb and right sidebar toggle -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Lista de Productos en BD</h4>
+                                <h6 class="card-subtitle">Estos son los productos disponibles en nuestra base de datos DespensApp</h6>
+                                <div class="table-responsive">
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#addModal">Añadir Nuevo Producto</button>
+									<table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="50">
+                                        <thead>
+                                            <tr>
+                                                <th>Id</th>
+                                                <th>Nombre de Producto</th>
+                                                <th>Unidad de Medida</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="product:${products}">
+                                                <td th:text="${product.id}"></td>
+                                                <td th:text="${product.name}"></td>
+                                                <td th:text="${product.measureUnit.name}"></td>
+                                                <td>
+												<div class="btn-group">
+												<!--<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" th:data-id="${product.id}" th:data-name="${product.name}" th:data-measureunitid="${product.measureUnit.id}" data-target="#editModal" id="editButton-${product.id}">Modificar</button>-->
+													<a th:href="@{/products/findById/(id=${product.id})}"class="btn btn-primary" id="editButton">Modificar</a>
+													<!--<td>
+  														<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" th:data-id="${product.id}" th:data-name="${product.name}" th:data-measureunitid="${product.measureUnit.id}" data-target="#editModal">Modificar</button>													
+													</td>-->
+												</div>
+												</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                     
+                        <!-- Column -->
+                        <!--
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Add & Remove Rows</h4>
+                                <h6 class="card-subtitle">You can add or remove rows with Footable</h6>
+                                <table id="demo-foo-addrow2" class="table table-bordered table-hover toggle-circle" data-page-size="7">
+                                    <thead>
+                                        <tr>
+                                            <th data-sort-initial="true" data-toggle="true">First Name</th>
+                                            <th>Last Name</th>
+                                            <th data-hide="phone, tablet">Job Title</th>
+                                            <th data-hide="phone, tablet">DOB</th>
+                                            <th data-hide="phone, tablet">Status</th>
+                                            <th data-sort-ignore="true" class="min-width">Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <div class="m-t-40">
+                                        <div class="d-flex">
+                                            <div class="mr-auto">
+                                                <div class="form-group">
+                                                    <button id="demo-btn-addrow" class="btn btn-primary btn-sm"><i class="icon wb-plus" aria-hidden="true"></i>Add New Row
+                                                    </button>
+                                                    <small>New row will be added in last page.</small> </div>
+                                            </div>
+                                            <div class="ml-auto">
+                                                <div class="form-group">
+                                                    <input id="demo-input-search2" type="text" placeholder="Search" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <tbody>
+                                        <tr>
+                                            <td>Shona</td>
+                                            <td>Woldt</td>
+                                            <td>Airline Transport Pilot</td>
+                                            <td>3 Oct 2017</td>
+                                            <td><span class="label label-table label-success">Active</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lizzee</td>
+                                            <td>Goodlow</td>
+                                            <td>Technical Services Librarian</td>
+                                            <td>1 Nov 2014</td>
+                                            <td><span class="label label-table label-danger">Suspended</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Isidra</td>
+                                            <td>Boudreaux</td>
+                                            <td>Traffic Court Referee</td>
+                                            <td>22 Jun 2014</td>
+                                            <td><span class="label label-table label-success">Active</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Doris</td>
+                                            <td>Michael</td>
+                                            <td>Business Services Sales Representative</td>
+                                            <td>19 Apr 2013</td>
+                                            <td><span class="label label-table label-danger">Suspended</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lauri</td>
+                                            <td>Hyland</td>
+                                            <td>Blackjack Supervisor</td>
+                                            <td>15 Nov 2014</td>
+                                            <td><span class="label label-table label-danger">Suspended</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maple</td>
+                                            <td>Halladay</td>
+                                            <td>Aviation Tactical Readiness Officer</td>
+                                            <td>30 Dec 2017</td>
+                                            <td><span class="label label-table label-danger">Suspended</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lorraine</td>
+                                            <td>Mcgaughy</td>
+                                            <td>Hemodialysis Technician</td>
+                                            <td>11 Nov 2014</td>
+                                            <td><span class="label label-table label-success">Active</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Judi</td>
+                                            <td>Badgett</td>
+                                            <td>Electrical Lineworker</td>
+                                            <td>23 Jun 2013</td>
+                                            <td><span class="label label-table label-success">Active</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Granville</td>
+                                            <td>Leonardo</td>
+                                            <td>Business Services Sales Representative</td>
+                                            <td>19 Apr 2013</td>
+                                            <td><span class="label label-table label-danger">Suspended</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lauri</td>
+                                            <td>Hyland</td>
+                                            <td>Blackjack Supervisor</td>
+                                            <td>15 Nov 2014</td>
+                                            <td><span class="label label-table label-danger">Suspended</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maple</td>
+                                            <td>Halladay</td>
+                                            <td>Aviation Tactical Readiness Officer</td>
+                                            <td>30 Dec 2017</td>
+                                            <td><span class="label label-table label-danger">Suspended</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lorraine</td>
+                                            <td>Mcgaughy</td>
+                                            <td>Hemodialysis Technician</td>
+                                            <td>11 Nov 2014</td>
+                                            <td><span class="label label-table label-success">Active</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Judi</td>
+                                            <td>Badgett</td>
+                                            <td>Electrical Lineworker</td>
+                                            <td>23 Jun 2013</td>
+                                            <td><span class="label label-table label-success">Active</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Granville</td>
+                                            <td>Leonardo</td>
+                                            <td>Business Services Sales Representative</td>
+                                            <td>19 Apr 2013</td>
+                                            <td><span class="label label-table label-danger">Suspended</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Lauri</td>
+                                            <td>Hyland</td>
+                                            <td>Blackjack Supervisor</td>
+                                            <td>15 Nov 2014</td>
+                                            <td><span class="label label-table label-danger">Suspended</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Easer</td>
+                                            <td>Dragoo</td>
+                                            <td>Drywall Stripper</td>
+                                            <td>13 Dec 2014</td>
+                                            <td><span class="label label-table label-success">Active</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maple</td>
+                                            <td>Halladay</td>
+                                            <td>Aviation Tactical Readiness Officer</td>
+                                            <td>30 Dec 2017</td>
+                                            <td><span class="label label-table label-danger">Suspended</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maria</td>
+                                            <td>Tangeli</td>
+                                            <td>Drywall Stripper</td>
+                                            <td>21 May 2014</td>
+                                            <td><span class="label label-table label-success">Active</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maple</td>
+                                            <td>Halladay</td>
+                                            <td>Aviation Tactical Readiness Officer</td>
+                                            <td>30 Dec 2017</td>
+                                            <td><span class="label label-table label-danger">Suspended</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Easer</td>
+                                            <td>Dragoo</td>
+                                            <td>Drywall Stripper</td>
+                                            <td>13 Dec 2014</td>
+                                            <td><span class="label label-table label-success">Active</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Maple</td>
+                                            <td>Halladay</td>
+                                            <td>Aviation Tactical Readiness Officer</td>
+                                            <td>30 Dec 2017</td>
+                                            <td><span class="label label-table label-danger">Suspended</span> </td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-icon btn-pure btn-outline delete-row-btn" data-toggle="tooltip" data-original-title="Delete"><i class="ti-close" aria-hidden="true"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="6">
+                                                <div class="text-right">
+                                                    <ul class="pagination">
+                                                    </ul>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        -->
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer text-center">
+                Todos los derechos reservados. Diseñado y desarrollado por estudiantes del
+                <a href="https://ciisa.cl">Instituto Profesional CIISA</a>.
+            </footer>
+            <!-- ============================================================== -->
+            <!-- End footer -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+    <!-- Modal Form Add Product MODAL PARA AÑADIR PRODUCTO-->
+    <!-- ============================================================== -->	
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Agregar Producto</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body">
+				<form th:action="@{/products/addNew}" method="post">
+				
+				  <div class="form-group">
+					<label for="product-name-add" class="col-form-label">Nombre del producto:</label>
+					<input type="text" class="form-control" id="product-name-add" name="name">
+				  </div>
+				  
+				  <div class="form-group">
+					<label for="measure-unit-add" class="col-form-label">Unidad de medida:</label>
+					<select class="form-control" id="measure-unit-add" name="measureunitid">
+						<option th:each="measureUnit:${measureUnits}" th:value="${measureUnit.id}" th:text="${measureUnit.name}"></option>
+					</select>
+				  </div>
+				  
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button type="submit" class="btn btn-primary">Agregar</button>
+				  </div>
+				  
+				</form>
+			  </div>
+
+			</div>
+		</div>
+	</div>
+	<!-- ============================================================== -->
+    <!-- Modal Form Edit Product MODAL PARA EDITAR PRODUCTO-->
+    <!-- ============================================================== -->	
+	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modificar Producto</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body">
+				<form th:action="@{/products/addNew}" method="post">
+				
+				  <div class="form-group">
+					<label for="product-name-edit" class="col-form-label">Nombre del producto:</label>
+					<input type="text" class="form-control" id="product-name-edit" name="name">
+				  </div>
+				  
+				  <div class="form-group">
+					<label for="measure-unit-edit" class="col-form-label">Unidad de medida:</label>
+					<select class="form-control" id="measure-unit-edit" name="measureunitid">
+						<option th:each="measureUnit:${measureUnits}" th:value="${measureUnit.id}" th:text="${measureUnit.name}"></option>
+					</select>
+				  </div>
+				  
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<button type="submit" class="btn btn-primary">Guardar Cambios</button>
+				  </div>
+				  
+				</form>
+			  </div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+    <!-- ============================================================== -->
+    <!-- End Modal Form Add Product -->
+    <!-- ============================================================== -->		
+	
+    <!-- ============================================================== -->
+    <!-- customizer Panel -->
+    <!-- ============================================================== -->
+    <aside class="customizer">
+        <a href="javascript:void(0)" class="service-panel-toggle"><i class="fa fa-spin fa-cog"></i></a>
+        <div class="customizer-body">
+            <ul class="nav customizer-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true"><i class="mdi mdi-wrench font-20"></i></a>
+                </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+                <!-- Tab 1 (Ajustes Toggler) -->
+                <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                    <div class="p-15 border-bottom">
+                        <!-- Sidebar -->
+                        <h5 class="font-medium m-b-10 m-t-10">Layout Settings</h5>
+                        <div class="custom-control custom-checkbox m-t-10">
+                            <input type="checkbox" class="custom-control-input" name="theme-view" id="theme-view">
+                            <label class="custom-control-label" for="theme-view">Tema Oscuro</label>
+                        </div>
+                        <div class="custom-control custom-checkbox m-t-10">
+                            <input type="checkbox" class="custom-control-input sidebartoggler" name="collapssidebar" id="collapssidebar">
+                            <label class="custom-control-label" for="collapssidebar">Contraer Nav. Lateral</label>
+                        </div>
+                        <div class="custom-control custom-checkbox m-t-10">
+                            <input type="checkbox" class="custom-control-input" name="sidebar-position" id="sidebar-position">
+                            <label class="custom-control-label" for="sidebar-position">Nav. Lateral Fijo</label>
+                        </div>
+                        <div class="custom-control custom-checkbox m-t-10">
+                            <input type="checkbox" class="custom-control-input" name="header-position" id="header-position">
+                            <label class="custom-control-label" for="header-position">Cabecera Fija</label>
+                        </div>
+                        <div class="custom-control custom-checkbox m-t-10">
+                            <input type="checkbox" class="custom-control-input" name="boxed-layout" id="boxed-layout">
+                            <label class="custom-control-label" for="boxed-layout">Modo "caja"</label>
+                        </div>
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <!-- Logo BG -->
+                        <h5 class="font-medium m-b-10 m-t-10">Logo Backgrounds</h5>
+                        <ul class="theme-color">
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-logobg="skin1"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-logobg="skin2"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-logobg="skin3"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-logobg="skin4"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-logobg="skin5"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-logobg="skin6"></a></li>
+                        </ul>
+                        <!-- Logo BG -->
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <!-- Navbar BG -->
+                        <h5 class="font-medium m-b-10 m-t-10">Navbar Backgrounds</h5>
+                        <ul class="theme-color">
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-navbarbg="skin1"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-navbarbg="skin2"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-navbarbg="skin3"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-navbarbg="skin4"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-navbarbg="skin5"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-navbarbg="skin6"></a></li>
+                        </ul>
+                        <!-- Navbar BG -->
+                    </div>
+                    <div class="p-15 border-bottom">
+                        <!-- Logo BG -->
+                        <h5 class="font-medium m-b-10 m-t-10">Sidebar Backgrounds</h5>
+                        <ul class="theme-color">
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin1"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin2"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin3"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin4"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin5"></a></li>
+                            <li class="theme-item"><a href="javascript:void(0)" class="theme-link" data-sidebarbg="skin6"></a></li>
+                        </ul>
+                        <!-- Logo BG -->
+                    </div>
+                </div>
+                <!-- Fin Tab 1-->
+            </div>
+        </div>
+    </aside>
+    <div class="chat-windows"></div>
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="../../assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- apps -->
+    <script src="../../dist/js/app.min.js"></script>
+    <script src="../../dist/js/app.init.dark.js"></script>
+    <script src="../../dist/js/app-style-switcher.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="../../assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="../../assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="../../dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="../../dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="../../dist/js/custom.min.js"></script>
+    <!--This page JavaScript -->
+    <script src="../../assets/libs/footable/dist/footable.all.min.js"></script>
+    <script src="../../dist/js/pages/tables/footable-init.js"></script>
+	<script src="../../assets/js/product.js"></script>
+</body>
+
+</html>
