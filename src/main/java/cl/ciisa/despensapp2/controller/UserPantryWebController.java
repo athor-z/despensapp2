@@ -11,10 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cl.ciisa.despensapp2.model.ProductPantry;
+import cl.ciisa.despensapp2.model.dto.ProductPantryDTO;
 import cl.ciisa.despensapp2.services.PantryService;
 import cl.ciisa.despensapp2.services.ProductPantryService;
 import cl.ciisa.despensapp2.services.UserService;
@@ -35,22 +36,19 @@ public class UserPantryWebController {
     public String userPantry(Model model, Principal principal) {
         String username = principal.getName();
         String userEmail = userService.findEmailByUsername(username);
-
-        
-        // Obtén la información de la despensa del usuario
-        List<ProductPantry> userPantryList = productPantryService.getProductsInPantryByUsername(username);
         // Obtén el nombre de la despensa del usuario
         String pantryName = pantryService.getPantryNameByUsername(username);
-        
+        // Obtener la información de la despensa del usuario como DTOs
+        List<ProductPantryDTO> userPantryList = productPantryService.getProductPantryDTOsByUsername(username);
+
         model.addAttribute("userEmail", userEmail);
         model.addAttribute("userPantryList", userPantryList);
         model.addAttribute("userPantryName", pantryName);
         model.addAttribute("editMode", false);
 
         return "user-pantry"; // Nombre de la plantilla Thymeleaf para la página de despensa del usuario
-                
-    }	
-	
+    }
+    
     @PostMapping("/updatePantryName")
     @PreAuthorize("isAuthenticated()")
     @ResponseBody // Indica que el método debe devolver una respuesta JSON
@@ -72,4 +70,24 @@ public class UserPantryWebController {
         return response;
     }
 
+    @PostMapping("/updateProductPantry")
+    @PreAuthorize("isAuthenticated")
+    @ResponseBody
+    public Map<String, Object> updateProductPantry(@RequestBody List<ProductPantryDTO> productPantryDTOs, Principal principal) {
+        String username = principal.getName();
+
+        Map<String, Object> response = new HashMap<>();
+
+        try {
+            // Actualizar las cantidades en la base de datos
+            productPantryService.updateProductPantryQuantity(username, productPantryDTOs);
+            response.put("success", true);
+        } catch (Exception e) {
+            // Maneja cualquier excepción aquí y establece success en false si es necesario
+            response.put("success", false);
+            response.put("error", "Error al guardar cambios (Java)");
+        }
+
+        return response;
+    }
 }

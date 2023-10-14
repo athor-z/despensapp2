@@ -528,7 +528,8 @@
                 <!-- ============================================================== -->
                 <!-- Background de bienvenida DespensApp -->
                 <!-- ============================================================== -->
-                <div class="row">
+                <!--
+				<div class="row">
 					
                     <div class="col-lg-12 col-md-12 order-lg-4 order-md-6">
                         <div class="card">
@@ -536,6 +537,56 @@
 										<div style="background-image: url('/assets/images/bg-01.png'); background-size:100% 100%; min-height:400px;" class="img-fluid w-100 h-auto"></div>
                             </div>
                         </div>
+                    </div>
+                </div>
+                -->
+                <div class="row">
+					
+                    <div class="col-lg-12 col-md-12 order-lg-4 order-md-6">
+					    <div class="card">
+					        <div class="card-body">
+					            <h4 class="card-title">Nuestras últimas Recetas</h4>
+					        </div>
+					        <div class="comment-widgets scrollable" style="height: 430px;">
+					            <!-- Itera sobre las últimas recetas -->
+					            <div th:each="recipe : ${latestRecipes}" class="d-flex flex-row comment-row">
+					                <div class="p-2">
+									    <img th:src="${recipe.image}" alt="Recipe Image" width="50" class="rounded-circle">
+									</div>
+					                <div class="comment-text w-100">
+					                    <h6 class="font-medium" th:text="${recipe.name}"></h6>
+					                    <span class="m-b-15 d-block" th:text="${recipe.shortDescription}"></span>
+					                    <div class="comment-footer">
+					                        <!--<span class="text-muted float-right" th:text="${recipe.restriction}"></span>-->
+					                        <!--<span th:utext="${'Valor de recipe.restriction: ' + recipe.restriction}"></span>-->
+					                        <span class="text-muted float-right">
+											    <span th:switch="${recipe.restriction}">
+											        <span th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).NONE}"> </span>
+											        <span th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).VEGETARIANO}">Ideal para Vegetarianos</span>
+											        <span th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).VEGANO}">Ideal para Veganos</span>
+											        <span th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).SIN_GLUTEN}">Receta Sin gluten</span>
+											        <span th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).SIN_LACTOSA}">Receta Sin lactosa</span>
+											        <span th:case="*">N/A</span>
+											    </span>
+											</span>
+					                        <span class="label label-rounded"> Dificultad: 
+    											<!--<span th:text="${recipe.difficulty}"></span>-->
+    											<span th:switch="${recipe.difficulty}">
+												    <span th:case="${T(cl.ciisa.despensapp2.model.RecipeDifficulty).FACIL}" class="label label-rounded label-success">Fácil</span>
+												    <span th:case="${T(cl.ciisa.despensapp2.model.RecipeDifficulty).INTERMEDIO}" class="label label-rounded label-warning">Intermedia</span>
+												    <span th:case="${T(cl.ciisa.despensapp2.model.RecipeDifficulty).COMPLEJO}" class="label label-rounded label-danger">Compleja</span>
+												    <span th:case="*">DIFF</span>
+												</span>
+
+					                        </span>
+					                        <span class="action-icons">
+					                            <!-- Agrega aquí tus acciones -->
+					                        </span>
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
                     </div>
                 </div>
                 <!-- ============================================================== -->

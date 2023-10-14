@@ -56,4 +56,12 @@ public class PantryService {
             pantryRepository.save(pantry);
         }
     }    
+    
+    public Pantry findByUsername(String username) {
+    	
+    	UserDetails user = userRepository.findByUsername(username);
+    	Pantry foundUserPantry = ((User) user).getPantry();
+		return foundUserPantry;
+    	
+    }
 }
