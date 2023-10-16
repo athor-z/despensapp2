@@ -35,45 +35,51 @@ function updatePantryName() {
 		}
 	});
 }
-
 function saveChanges() {
-	var productPantryList = [];
+    var productPantryList = [];
 
-	// Obtener los valores actualizados de cantidad y guardarlos en la lista
-	var rows = document.querySelectorAll("[id^='quantity-']");
-	rows.forEach(function(row) {
-		var pantryIdElement = row.closest("tr").querySelector("td.pantryId");
-		var productIdElement = row.closest("tr").querySelector("td.productId");
-		var pantryId = pantryIdElement.textContent;
-		var productId = productIdElement.textContent;
-		var quantity = parseInt(row.value);
-		productPantryList.push({ pantryId: pantryId, productId: productId, quantity: quantity });
-	});
+    // Obtener los valores actualizados de cantidad y guardarlos en la lista
+    var rows = document.querySelectorAll("[id^='quantity-']");
+    rows.forEach(function(row) {
+        var pantryId = row.closest("tr").querySelector(".pantryId").value;
+        var productId = row.closest("tr").querySelector(".productId").value;
+        var quantity = parseInt(row.value);
+        productPantryList.push({ pantryId: pantryId, productId: productId, quantity: quantity });
+    });
 
-	// Obtener el token CSRF
-	var csrfToken = document.querySelector("meta[name='_csrf']").getAttribute("content");
+    // Obtener el token CSRF
+    var csrfToken = document.querySelector("meta[name='_csrf']").getAttribute("content");
 
-	// Realizar una solicitud AJAX para guardar los cambios en el servidor
-	$.ajax({
-		type: "POST",
-		url: "/updateProductPantry",
-		data: JSON.stringify(productPantryList),
-		contentType: "application/json",
-		beforeSend: function(xhr) {
-			xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken); // Agregar el token CSRF en el encabezado de la solicitud
-		},
-		success: function(response) {
-			if (response.success) {
-				alert("Cambios guardados exitosamente");
-			} else {
-				alert("Error al guardar cambios");
-			}
-		},
-		error: function() {
-			alert("Error de comunicación con el servidor");
-		}
-	});
+    // Realizar una solicitud AJAX para guardar los cambios en el servidor
+    $.ajax({
+        type: "POST",
+        url: "/updateProductPantry",
+        data: JSON.stringify(productPantryList),
+        contentType: "application/json",
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken); // Agregar el token CSRF en el encabezado de la solicitud
+        },
+        success: function(response) {
+            if (response.success) {
+                alert("Cambios guardados exitosamente");
+            } else {
+                alert("Error al guardar cambios");
+            }
+        },
+        error: function() {
+            alert("Error de comunicación con el servidor");
+        }
+    });
 }
+
+
+
+
+
+
+
+
+
 
 
 

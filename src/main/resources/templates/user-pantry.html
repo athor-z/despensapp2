@@ -515,27 +515,28 @@
 						<th>Nombre del Producto</th>
 						<th>Cantidad</th>
 						<th>Unidad de Medida</th>
-						<th>PantryId</th>
-						<th>ProductId</th>
 					</tr>
 				</thead>
 				<tbody>
 					<!-- Utiliza Thymeleaf para iterar sobre los productos en la despensa -->
-					<tr th:each="productPantry : ${userPantryList}">
-						<td th:text="${productPantry.productName}">Nombre del Producto</td>
-						<td>
-							<div class="input-group">
-								<input type="number" class="form-control" th:value="${productPantry.quantity}"
-									th:id="'quantity-' + ${productPantry.pantryId}" min="0">
-							</div>
-						</td>
-						<td th:text="${productPantry.measureUnit}">Unidad de Medida</td>
-						<td th:text="${productPantry.pantryId}" class="pantryId"></td>
-						<td th:text="${productPantry.productId}" class="productId"></td>
-					</tr>
+<tr th:each="productPantry : ${userPantryList}">
+    <td th:text="${productPantry.productName}">Nombre del Producto</td>
+    <td>
+        <div class="input-group">
+            <input type="number" class="form-control"
+                   th:value="${productPantry.quantity}"
+                   th:id="'quantity-' + ${productPantry.pantryId}" min="0">
+            <input type="hidden" th:value="${productPantry.pantryId}" class="pantryId">
+            <input type="hidden" th:value="${productPantry.productId}" class="productId">
+        </div>
+    </td>
+    <td th:text="${productPantry.measureUnit}">Unidad de Medida</td>
+</tr>
 				</tbody>
 			</table>
 			<button class="btn btn-primary" onclick="saveChanges()">Guardar Cambios</button>
+
+
 
 
 			<!-- footer -->
