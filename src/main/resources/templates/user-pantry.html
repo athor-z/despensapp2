@@ -508,6 +508,22 @@
 			<!-- ============================================================== -->
 			<!-- End Bread crumb and right sidebar toggle -->
 			<!-- ============================================================== -->
+				<div class="card">
+				<div class="col-5 align-self-center">
+					<div class="card-body">
+						<h4>Agrega un producto</h4>
+					</div>
+					<form class="input-group" action="#" th:action="@{/addProductToPantry}" method="post">
+						<select class="form-control" name="productId">
+							<option class="form-control" th:each="product : ${productList}" th:value="${product.id}"
+								th:text="${product.name}"></option>
+						</select>
+						<input type="number" class="form-control" name="quantity" min="1" placeholder="¿Cuánto?"
+							required>
+						<button type="submit">Añadir</button>
+					</form>
+				</div>
+				</div>
 
 			<table class="table">
 				<thead>
@@ -531,16 +547,14 @@
 						</td>
 						<td th:text="${productPantry.measureUnit}">Unidad de Medida</td>
 						<td>
-                			<button class="btn btn-danger" th:onclick="'removeProduct(' + ${productPantry.pantryId} + ', ' + ${productPantry.productId} + ')'">Eliminar</button>
-            			</td>
+							<button class="btn btn-danger"
+								th:onclick="'removeProduct(' + ${productPantry.pantryId} + ', ' + ${productPantry.productId} + ')'">Eliminar</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>
+
 			<button class="btn btn-primary" onclick="saveChanges()">Guardar Cambios</button>
-
-
-
-
 			<!-- footer -->
 			<!-- ============================================================== -->
 			<footer class="footer text-center">
