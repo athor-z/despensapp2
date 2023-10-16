@@ -6,16 +6,22 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import cl.ciisa.despensapp2.model.ProductPantryId;
 import cl.ciisa.despensapp2.model.dto.ProductPantryDTO;
+import cl.ciisa.despensapp2.repository.PantryRepository;
+import cl.ciisa.despensapp2.repository.ProductRepository;
 import cl.ciisa.despensapp2.services.PantryService;
 import cl.ciisa.despensapp2.services.ProductPantryService;
 import cl.ciisa.despensapp2.services.UserService;
@@ -31,6 +37,11 @@ public class UserPantryWebController {
     
     @Autowired
     private PantryService pantryService;
+    
+    @Autowired
+    private PantryRepository pantryRepository;
+    @Autowired
+    private ProductRepository productRepository;
 
     @GetMapping("/pantry")
     public String userPantry(Model model, Principal principal) {
@@ -90,4 +101,28 @@ public class UserPantryWebController {
 
         return response;
     }
+    
+    @SuppressWarnings("unchecked")
+	@RequestMapping(value = "/removeProduct", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<String> removeProduct(
+            @RequestParam("pantryId") Long pantryId,
+            @RequestParam("productId") Long productId) {
+        // Lógica para eliminar el producto de la despensa del usuario
+        // Esto implicará usar el servicio de ProductPantryService para eliminar el producto.
+        // También puedes manejar errores y devolver respuestas adecuadas.
+        
+        // Ejemplo de eliminación:
+        ProductPantryId id = new ProductPantryId();
+        id.setPantry(pantryRepository.findById(pantryId).orElse(null));
+        id.setProduct(productRepository.findById(productId).orElse(null));
+        
+        if (id.getPantry() != null && id.getProduct() != null) {
+            productPantryService.delete(id);
+            return ResponseEntity.ok("Producto eliminado correctamente.");
+        } else {
+            return (ResponseEntity<String>) ResponseEntity.badRequest();
+        }
+    }
+
 }

@@ -61,9 +61,9 @@ function saveChanges() {
         },
         success: function(response) {
             if (response.success) {
-                alert("Cambios guardados exitosamente");
+                alert("Cambios guardados exitosamente :)");
             } else {
-                alert("Error al guardar cambios");
+                alert("Error al guardar los cambios");
             }
         },
         error: function() {
@@ -72,6 +72,31 @@ function saveChanges() {
     });
 }
 
+
+function removeProduct(pantryId, productId) {
+	    // Obtener el token CSRF
+    var csrfToken = document.querySelector("meta[name='_csrf']").getAttribute("content");
+	
+    if (confirm("¿Seguro que deseas eliminar este producto?")) {
+        $.ajax({
+            type: "POST",
+            url: "/removeProduct",
+            data: { pantryId: pantryId, productId: productId },
+            beforeSend: function(xhr) {
+	            xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken); // Agregar el token CSRF en el encabezado de la solicitud
+	        },
+            success: function(response) {
+                // Actualiza la vista después de eliminar el producto.
+                // Puedes recargar la lista de productos en la despensa o realizar otras actualizaciones necesarias.
+                alert("Producto eliminado correctamente.");
+                window.location.reload();
+            },
+            error: function() {
+                alert("Error al eliminar el producto.");
+            }
+        });
+    }
+}
 
 
 

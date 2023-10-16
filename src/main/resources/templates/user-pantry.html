@@ -530,6 +530,9 @@
 							</div>
 						</td>
 						<td th:text="${productPantry.measureUnit}">Unidad de Medida</td>
+						<td>
+                			<button class="btn btn-danger" th:onclick="'removeProduct(' + ${productPantry.pantryId} + ', ' + ${productPantry.productId} + ')'">Eliminar</button>
+            			</td>
 					</tr>
 				</tbody>
 			</table>
