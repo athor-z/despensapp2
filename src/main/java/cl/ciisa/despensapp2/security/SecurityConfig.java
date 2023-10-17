@@ -30,7 +30,7 @@ public class SecurityConfig {
 	        .and()
             .authorizeHttpRequests()
             .requestMatchers("/login", "/resources/**", "/css/**").permitAll()
-            .requestMatchers("/updatePantryName").authenticated()
+            //.requestMatchers("/updatePantryName").authenticated()
             .anyRequest().authenticated()
             .and()
             .formLogin()
@@ -40,6 +40,7 @@ public class SecurityConfig {
             .permitAll()
             .and()
             .logout()
+            .logoutUrl("/logout")
             .permitAll();
     }
     

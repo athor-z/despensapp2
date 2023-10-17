@@ -63,10 +63,10 @@
 		    <artifactId>jjwt</artifactId>
 		    <version>0.9.1</version>
 		</dependency>-->
-		<dependency>
+		<!--<dependency>
 		    <groupId>org.springframework.security</groupId>
 		    <artifactId>spring-security-config</artifactId>
-		</dependency>
+		</dependency>-->
 		<!--DevTools: Quitar esta dependencia al desplegar en Produccion -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
