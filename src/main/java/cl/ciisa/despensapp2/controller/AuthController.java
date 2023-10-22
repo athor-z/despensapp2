@@ -13,7 +13,7 @@ public class AuthController {
 
 	
     @GetMapping("/login")
-    public String showLoginForm() {
+    public String login() {
         return "login"; // Cambia "loginForm" por "login" para usar nuestra vista personalizada
     }    
     @GetMapping("/logout")

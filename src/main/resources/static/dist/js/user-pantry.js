@@ -35,69 +35,6 @@ function updatePantryName() {
 		}
 	});
 }
-function saveChanges() {
-    var productPantryList = [];
-
-    // Obtener los valores actualizados de cantidad y guardarlos en la lista
-    var rows = document.querySelectorAll("[id^='quantity-']");
-    rows.forEach(function(row) {
-        var pantryId = row.closest("tr").querySelector(".pantryId").value;
-        var productId = row.closest("tr").querySelector(".productId").value;
-        var quantity = parseInt(row.value);
-        productPantryList.push({ pantryId: pantryId, productId: productId, quantity: quantity });
-    });
-
-    // Obtener el token CSRF
-    var csrfToken = document.querySelector("meta[name='_csrf']").getAttribute("content");
-
-    // Realizar una solicitud AJAX para guardar los cambios en el servidor
-    $.ajax({
-        type: "POST",
-        url: "/updateProductPantry",
-        data: JSON.stringify(productPantryList),
-        contentType: "application/json",
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken); // Agregar el token CSRF en el encabezado de la solicitud
-        },
-        success: function(response) {
-            if (response.success) {
-                alert("Cambios guardados exitosamente :)");
-            } else {
-                alert("Error al guardar los cambios");
-            }
-        },
-        error: function() {
-            alert("Error de comunicación con el servidor");
-        }
-    });
-}
-
-
-function removeProduct(pantryId, productId) {
-	    // Obtener el token CSRF
-    var csrfToken = document.querySelector("meta[name='_csrf']").getAttribute("content");
-	
-    if (confirm("¿Seguro que deseas eliminar este producto?")) {
-        $.ajax({
-            type: "POST",
-            url: "/removeProduct",
-            data: { pantryId: pantryId, productId: productId },
-            beforeSend: function(xhr) {
-	            xhr.setRequestHeader("X-CSRF-TOKEN", csrfToken); // Agregar el token CSRF en el encabezado de la solicitud
-	        },
-            success: function(response) {
-                // Actualiza la vista después de eliminar el producto.
-                // Puedes recargar la lista de productos en la despensa o realizar otras actualizaciones necesarias.
-                alert("Producto eliminado correctamente.");
-                window.location.reload();
-            },
-            error: function() {
-                alert("Error al eliminar el producto.");
-            }
-        });
-    }
-}
-
 
 
 
