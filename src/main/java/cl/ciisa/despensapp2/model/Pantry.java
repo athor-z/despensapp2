@@ -13,9 +13,6 @@ import jakarta.persistence.*;
 @Table(name = "pantry")
 public class Pantry implements Serializable{
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = -9118982565949964300L;
 
 	@Id

@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cl.ciisa.despensapp2.model.Pantry;
+import cl.ciisa.despensapp2.model.Product;
 import cl.ciisa.despensapp2.model.ProductPantry;
 import cl.ciisa.despensapp2.model.ProductPantryId;
 import cl.ciisa.despensapp2.model.dto.ProductPantryDTO;
@@ -84,7 +86,32 @@ public class ProductPantryService {
             }
         }
     }
-    //public long getCountOfProductsInPantryByUsername(String username) {
-    //    return productPantryRepository.countByUserUsername(username);
-    //}
+    
+
+    public void addProductToPantry(String username, Long productId, int quantity) {
+        // Buscar la despensa del usuario por nombre de usuario
+        Pantry pantry = pantryRepository.findByUserUsername(username);
+        
+        // Buscar el producto por su ID
+        Product product = productRepository.findById(productId).orElse(null);
+        
+        if (pantry != null && product != null) {
+            // Verificar si ya existe una entrada de ProductPantry para este producto en la despensa
+            ProductPantryId productPantryId = new ProductPantryId(pantry, product);
+            ProductPantry existingProductPantry = productPantryRepository.findById(productPantryId).orElse(null);
+            
+            if (existingProductPantry != null) {
+                // Si ya existe una entrada para este producto, actualiza la cantidad
+                existingProductPantry.setQuantity(existingProductPantry.getQuantity() + quantity);
+                productPantryRepository.save(existingProductPantry);
+            } else {
+                // Si no existe una entrada para este producto, crea una nueva
+                ProductPantry newProductPantry = new ProductPantry();
+                newProductPantry.setId(productPantryId);
+                newProductPantry.setQuantity(quantity);
+                productPantryRepository.save(newProductPantry);
+            }
+        }
+    }
+
 }
