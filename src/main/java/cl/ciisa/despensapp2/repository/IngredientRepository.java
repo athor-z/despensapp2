@@ -10,7 +10,8 @@ import cl.ciisa.despensapp2.model.Product;
 
 @Repository
 public interface IngredientRepository extends JpaRepository<Ingredient, Long> {
-
+	
+	
 	List<Ingredient> findByRecipeId(Long recipeId);
 
 	List<Ingredient> findByProduct(Product product);

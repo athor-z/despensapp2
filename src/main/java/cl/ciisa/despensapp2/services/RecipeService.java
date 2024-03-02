@@ -1,8 +1,10 @@
 package cl.ciisa.despensapp2.services;
 
 import cl.ciisa.despensapp2.model.FoodRestriction;
+import cl.ciisa.despensapp2.model.Ingredient;
 import cl.ciisa.despensapp2.model.Recipe;
 import cl.ciisa.despensapp2.model.RecipeDifficulty;
+import cl.ciisa.despensapp2.repository.IngredientRepository;
 import cl.ciisa.despensapp2.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +17,10 @@ public class RecipeService {
     
 	@Autowired
 	private RecipeRepository recipeRepository;
-
+	//01-03-24
+	@Autowired
+	private IngredientRepository ingredientRepository;
+    
 	public List<Recipe> getAllRecipes() {
 	    return recipeRepository.findAll();
 	}
@@ -69,4 +74,8 @@ public class RecipeService {
         return recipeRepository.findTopNByOrderByIdDesc(count);
     }
     */
+    //01-03-24
+    public List<Ingredient> getIngredientsByRecipeId(Long recipeId) {
+        return ingredientRepository.findByRecipeId(recipeId);
+    }
 }
