@@ -55,4 +55,30 @@ public class ProductService {
     public Long getCountOfProducts() {
         return productRepository.count();
     }
+    
+    //01-03-24
+    //Actualizar la cantidad de producto en despensa al preparar la RECETA, esto propablemente no se use (reemplaza IngredientService)
+    public void updateProductPantryQuantity(Long productId, Long pantryId, int quantityChange) {
+        ProductPantryId productPantryId = new ProductPantryId();
+        Pantry pantry = pantryRepository.findById(pantryId)
+                .orElseThrow(() -> new EntityNotFoundException("Pantry with id " + pantryId + " not found"));
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new EntityNotFoundException("Product with id " + productId + " not found"));
+
+        productPantryId.setPantry(pantry);
+        productPantryId.setProduct(product);
+
+        ProductPantry productPantry = productPantryRepository.findById(productPantryId)
+                .orElseThrow(() -> new EntityNotFoundException("ProductPantry not found for given product and pantry IDs"));
+
+        int updatedQuantity = productPantry.getQuantity() + quantityChange;
+        if (updatedQuantity < 0) {
+            throw new IllegalArgumentException("Cannot have negative quantity in pantry");
+        }
+
+        productPantry.setQuantity(updatedQuantity);
+        productPantryRepository.save(productPantry);
+    }
+
+    
 }

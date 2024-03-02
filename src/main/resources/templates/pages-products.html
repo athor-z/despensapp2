@@ -489,7 +489,7 @@
 												<th>ID</th>
 												<th>Nombre del Producto</th>
 												<th>Unidad de Medida</th>
-												<th>Acción</th> <!-- Columna para el botón "Agregar a mi despensa" -->
+												<th>¿Cuánto deseas agregar en tu despensa?</th> <!-- Columna para el botón "Agregar a mi despensa" -->
 											</tr>
 										</thead>
 										<tbody>
@@ -501,12 +501,13 @@
 												<td>
 													<!-- Formulario para agregar a la despensa -->
 													<form th:action="@{/addToPantryFromProductList}" method="post">
+														<div class="input-group">
 														<input type="hidden" name="productId"
 															th:value="${product.id}" />
-														<label for="quantity">Cantidad:</label>
-														<input type="number" name="quantity" min="1" required />
-														<button type="submit" class="btn btn-primary">Agregar a mi
-															despensa</button>
+														<label for="quantity" class="mr-2">Cantidad:</label>
+														<input type="number" class="form-control" name="quantity" min="1" required />
+														<button type="submit" class="btn btn-primary ml-2">Agregar</button>
+														</div>
 													</form>
 												</td>
 											</tr>

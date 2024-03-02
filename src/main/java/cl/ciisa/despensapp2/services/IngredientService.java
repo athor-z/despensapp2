@@ -63,4 +63,26 @@ public class IngredientService {
 	    return ingredientRepository.countByRecipeId(recipeId);
 	}
 	
+	//01-03-24
+	public boolean checkIngredientsAvailabilityAndUpdatePantry(List<Ingredient> ingredients, Long pantryId) {
+	    for (Ingredient ingredient : ingredients) {
+	        // Verificar la cantidad disponible en la despensa para cada ingrediente
+	        int availableQuantity = productService.getQuantityFromProductPantry(ingredient.getProduct().getId(), pantryId);
+	        if (availableQuantity < ingredient.getQuantity()) {
+	            // Si alguno de los ingredientes no está disponible en la cantidad necesaria, retorna falso
+	            return false;
+	        }
+	    }
+
+	    // Si todos los ingredientes están disponibles, actualizar la cantidad en la despensa
+	    for (Ingredient ingredient : ingredients) {
+	        productService.updateProductPantryQuantity(ingredient.getProduct().getId(), pantryId, -ingredient.getQuantity());
+	    }
+
+	    // Todos los ingredientes estaban disponibles y se han actualizado, retorna verdadero
+	    return true;
+	}
+
+
+	
 }
