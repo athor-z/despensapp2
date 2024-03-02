@@ -4,6 +4,7 @@ import cl.ciisa.despensapp2.model.FoodRestriction;
 import cl.ciisa.despensapp2.model.Ingredient;
 import cl.ciisa.despensapp2.model.Recipe;
 import cl.ciisa.despensapp2.model.RecipeDifficulty;
+import cl.ciisa.despensapp2.model.dto.IngredientProductDTO;
 import cl.ciisa.despensapp2.repository.IngredientRepository;
 import cl.ciisa.despensapp2.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class RecipeService {
@@ -78,4 +80,13 @@ public class RecipeService {
     public List<Ingredient> getIngredientsByRecipeId(Long recipeId) {
         return ingredientRepository.findByRecipeId(recipeId);
     }
+    
+    //02-03-24 -> Explotando la DTO
+    public List<IngredientProductDTO> getIngredientsForRecipe(Long recipeId) {
+        List<Ingredient> ingredients = ingredientRepository.findByRecipeId(recipeId);
+        return ingredients.stream()
+                .map(ingredient -> new IngredientProductDTO(ingredient.getProduct().getName(),ingredient.getQuantity(),ingredient.getProduct().getMeasureUnit()))
+                .collect(Collectors.toList());
+    }
+
 }

@@ -478,7 +478,7 @@
 					<div class="col-md-4">
 						<img th:src="${recipe.image}" alt="Imagen de Receta" class="img-fluid">
 						<br><br>
-												<h4>¿Por qué te recomendamos prepararlo?</h4>
+						<h4>¿Por qué te recomendamos prepararlo?</h4>
 						<p><em><small th:text="${recipe.shortDescription}">Descripción corta de la receta</small></em>
 						</p>
 					</div>
@@ -488,14 +488,24 @@
 
 						<p></p>
 						<p>
-						<h4>Racionamiento:</h4> <ul><li><span th:text="${recipe.portions}">4</span> porciones.</li></ul></p>
+						<h4>Racionamiento:</h4>
+						<ul>
+							<li><span th:text="${recipe.portions}">4</span> porciones.</li>
+						</ul>
+						</p>
 						<!-- Sección de Ingredientes -->
 						<h4>Ingredientes:</h4>
-						<ul>
+						<!--<ul>
 							<li th:each="ingredient : ${ingredients}">
 								<span
 									th:text="${ingredient.product.name} + ' - ' + ${ingredient.quantity} + ' ' + ${ingredient.product.measureUnit}">Nombre
 									del ingrediente - Cantidad - Unidad</span>
+							</li>
+						</ul>-->
+						<ul>
+							<li th:each="dto : ${ingredientDTOs}">
+								<span
+									th:text="${dto.productName} + ' - ' + ${dto.quantity} + ' ' + ${dto.measureUnit}">Ingredient</span>
 							</li>
 						</ul>
 						<h3>Instrucciones</h3>

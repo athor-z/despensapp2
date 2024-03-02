@@ -8,22 +8,25 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import cl.ciisa.despensapp2.model.Ingredient;
+//import cl.ciisa.despensapp2.model.Ingredient;
 import cl.ciisa.despensapp2.model.Recipe;
+import cl.ciisa.despensapp2.model.dto.IngredientProductDTO;
 import cl.ciisa.despensapp2.services.RecipeService;
 
 @Controller
-public class RecipeController {
+public class RecipeWebController {
 
 	@Autowired
 	private RecipeService recipeService;
 
 	@GetMapping("/recipes/{id}")
-	public String viewRecipe(@PathVariable Long id, Model model) {
-		Recipe recipe = recipeService.getRecipeById(id);
-		List<Ingredient> ingredients = recipeService.getIngredientsByRecipeId(id);; //NEW 01-03-24
-		model.addAttribute("recipe", recipe);
-		model.addAttribute("ingredients", ingredients); //NEW 01-03-24
-		return "recipe-detail"; // Nombre de la plantilla Thymeleaf para la página de detalle de receta
+	public String showRecipe(@PathVariable Long id, Model model) {
+	    Recipe recipe = recipeService.getRecipeById(id);
+	    if (recipe != null) {
+	        List<IngredientProductDTO> ingredientDTOs = recipeService.getIngredientsForRecipe(id);
+	        model.addAttribute("recipe", recipe);
+	        model.addAttribute("ingredientDTOs", ingredientDTOs);
+	    }
+	    return "recipe-detail";
 	}
 }
