@@ -70,5 +70,10 @@ public class UserService{
     public List<User> findUsersByRestriction(FoodRestriction restriction) {
         return userRepository.findByRestriction(restriction);
     }
+    
+    //04-03-24
+    public Long findUserIdByUsername(String username) {
+        return userRepository.findUserIdByUsername(username);
+    }
 
 }

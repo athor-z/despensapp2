@@ -1,8 +1,11 @@
 package cl.ciisa.despensapp2.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import cl.ciisa.despensapp2.model.ProductPantry;
@@ -12,8 +15,11 @@ import cl.ciisa.despensapp2.model.ProductPantryId;
 public interface ProductPantryRepository extends JpaRepository<ProductPantry, ProductPantryId> {
 	//long countProductsInPantryByUsername(String username);
 	//long countByUserUsername(String username);
-	//NUEVO
 	long countByPantryUserUsername(String username);
-	//Otro NUEVO
 	List<ProductPantry> findByPantryUserUsername(String username);
+	//03-03-24
+	//Optional<ProductPantry> findByUserIdAndProductId(Long userId, Long productId); //NO FUNCIONA
+	@Query("SELECT pp FROM ProductPantry pp WHERE pp.pantry.user.id = :userId AND pp.product.id = :productId")
+	Optional<ProductPantry> findByUserIdAndProductId(@Param("userId") Long userId, @Param("productId") Long productId);
+
 }
