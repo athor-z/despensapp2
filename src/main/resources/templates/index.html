@@ -447,7 +447,7 @@
 			<div class="page-breadcrumb">
 				<div class="row">
 					<div class="col-5 align-self-center">
-						<h4 class="page-title">Mi Dashboard DespensApp</h4>
+						<h4 class="page-title"><i class="mdi mdi-view-dashboard"></i> Mi Dashboard DespensApp</h4>
 					</div>
 					<div class="col-7 align-self-center">
 						<div class="d-flex align-items-center justify-content-end">
@@ -480,7 +480,7 @@
 								<div class="col-md-12">
 									<div class="d-flex no-block align-items-center">
 										<div>
-											<i class="mdi mdi-emoticon font-20 text-muted"></i>
+											<i class="mdi mdi-food-variant font-20 text-muted"></i>
 											<p class="font-16 m-b-5">Productos en nuestro sitio</p>
 										</div>
 										<div class="ml-auto">
@@ -506,7 +506,7 @@
 								<div class="col-md-12">
 									<div class="d-flex no-block align-items-center">
 										<div>
-											<i class="mdi mdi-image font-20  text-muted"></i>
+											<i class="mdi mdi-script font-20 text-muted"></i>
 											<p class="font-16 m-b-5">Recetas disponibles</p>
 										</div>
 										<div class="ml-auto">
@@ -532,7 +532,7 @@
 								<div class="col-md-12">
 									<div class="d-flex no-block align-items-center">
 										<div>
-											<i class="mdi mdi-currency-eur font-20 text-muted"></i>
+											<i class="mdi mdi-fridge font-20 text-muted"></i>
 											<p class="font-16 m-b-5">Productos en tu despensa</p>
 										</div>
 										<div class="ml-auto">
@@ -592,10 +592,10 @@
 														th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).NONE}">
 													</span>
 													<span
-														th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).VEGETARIANO}">Ideal
+														th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).VEGETARIANO}">Recomendado
 														para Vegetarianos</span>
 													<span
-														th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).VEGANO}">Ideal
+														th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).VEGANO}">Recomendado
 														para Veganos</span>
 													<span
 														th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).SIN_GLUTEN}">Receta
@@ -623,7 +623,7 @@
 
 											</span>
 											<span class="action-icons">
-												<a th:href="@{/recipes/{id}(id=${recipe.id})}">Ver receta</a>
+												<a th:href="@{/recipes/{id}(id=${recipe.id})}">Ver receta <i class="mdi mdi-open-in-new"></i></a>
 											</span>
 										</div>
 									</div>
