@@ -473,6 +473,60 @@
 			<!-- ============================================================== -->
 			<!-- Contenedor de la Receta -->
 			<div class="container-fluid">
+				<!-- Cinta de color para notificar la disponibilidad de ingredientes -->
+				<div th:switch="${ingredientAvailabilityStatus}">
+					<div th:case="${T(cl.ciisa.despensapp2.services.IngredientAvailability).COMPLETE}"
+						class="alert alert-success alert-dismissible fade show" role="alert">
+						<div class="row">
+							<div class="col-2 text-center">
+								<i class="fa fa-check-circle fa-3x" aria-hidden="true"></i>
+							</div>
+							<div class="col-10">
+								<h5>¡Fantastico! Tienes todos los
+									ingredientes para preparar esta receta :)</h5>
+							</div>
+						</div>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+
+					<div th:case="${T(cl.ciisa.despensapp2.services.IngredientAvailability).PARTIAL}"
+						class="alert alert-warning alert-dismissible fade show" role="alert">
+						<div class="row">
+							<div class="col-2 text-center">
+								<i class="fa fa-info-circle fa-6x" aria-hidden="true"></i>
+							</div>
+							<div class="col-10">
+								<h5>¡Ups! Te faltan algunos ingredientes para preparar la receta:</h5>
+								<ul>
+									<li th:each="ingredient : ${missingIngredients}" th:text="${ingredient}"></li>
+								</ul>
+							</div>
+						</div>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+
+					<div th:case="${T(cl.ciisa.despensapp2.services.IngredientAvailability).NONE}"
+						class="alert alert-danger alert-dismissible fade show" role="alert">
+						<div class="row">
+							<div class="col-2 text-center">
+								<i class="fa fa-exclamation-triangle fa-3x" aria-hidden="true"></i>
+							</div>
+							<div class="col-10">
+								<h5>No
+									tienes los ingredientes necesarios en tu despensa para preparar esta receta :(</h5>
+							</div>
+						</div>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+					</div>
+
+
+				</div>
 				<div class="row">
 					<!-- Columna para la Imagen -->
 					<div class="col-md-4">
@@ -482,6 +536,7 @@
 						<p><em><small th:text="${recipe.shortDescription}">Descripción corta de la receta</small></em>
 						</p>
 					</div>
+
 					<!-- Columna para el Texto (Nombre, Descripción corta, Descripción larga, Porciones) -->
 					<div class="col-md-8">
 						<h2 class="page-title" th:text="${recipe.name}">Nombre de la Receta</h2>
@@ -512,6 +567,16 @@
 						<p th:utext="${recipe.description}">Instrucciones de la receta</p>
 
 					</div>
+
+					<!-- Listar ingredientes faltantes si la disponibilidad es parcial -->
+					<div th:if="${ingredientAvailabilityStatus == 'PARTIAL'}">
+						<h3>Ingredientes faltantes:</h3>
+						<ul>
+							<li th:each="missingIngredient : ${missingIngredients}" th:text="${missingIngredient}">
+								Ingrediente</li>
+						</ul>
+					</div>
+
 				</div>
 			</div>
 			<!-- ============================================================== -->
