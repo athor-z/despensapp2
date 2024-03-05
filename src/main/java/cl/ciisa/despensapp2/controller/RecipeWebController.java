@@ -4,12 +4,16 @@ import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cl.ciisa.despensapp2.model.Recipe;
+import cl.ciisa.despensapp2.model.User;
 import cl.ciisa.despensapp2.model.dto.IngredientProductDTO;
 import cl.ciisa.despensapp2.services.IngredientAvailability;
 import cl.ciisa.despensapp2.services.RecipeService;
@@ -33,8 +37,7 @@ public class RecipeWebController {
 	        List<IngredientProductDTO> ingredientDTOs = recipeService.getIngredientsForRecipe(id);
 	        model.addAttribute("recipe", recipe);
 	        model.addAttribute("ingredientDTOs", ingredientDTOs);
-	        //04-03-24
-	        //Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
 	        String username = principal.getName(); // Obtiene el nombre de usuario del usuario autenticado
 	        Long userId = userService.findUserIdByUsername(username);
 	        IngredientAvailability availability = recipeService.checkIngredientsAvailability(id, userId);
@@ -61,4 +64,36 @@ public class RecipeWebController {
 	    return "redirect:/recipes/{id}";
 	}
 	*/
+	
+	//NUEO
+	
+	@PostMapping("/recipes/{recipeId}/prepare")
+	public String prepareRecipe(@PathVariable Long recipeId, Authentication authentication, RedirectAttributes redirectAttributes) {
+	    try {
+	        User user = (User) authentication.getPrincipal();
+	        Long userId = user.getId();
+
+	        IngredientAvailability availabilityStatus = recipeService.checkIngredientsAvailability(recipeId, userId);
+
+	        switch (availabilityStatus) {
+	            case COMPLETE:
+	                recipeService.prepareRecipe(recipeId, userId); // Asumiendo que este método ahora maneja la lógica de actualización de la despensa
+	                redirectAttributes.addFlashAttribute("successMessage", "La receta se ha preparado exitosamente y tu despensa ha sido actualizada.");
+	                break;
+	            case PARTIAL:
+	                redirectAttributes.addFlashAttribute("errorMessage", "Algunos ingredientes no están disponibles en la cantidad necesaria.");
+	                break;
+	            case NONE:
+	                redirectAttributes.addFlashAttribute("errorMessage", "No tienes ninguno de los ingredientes necesarios en tu despensa.");
+	                break;
+	        }
+
+	        return "redirect:/recipes/" + recipeId;
+	    } catch (Exception e) {
+	        redirectAttributes.addFlashAttribute("errorMessage", "Error al preparar la receta: " + e.getMessage());
+	        return "redirect:/recipes/" + recipeId;
+	    }
+	}
+
+
 }

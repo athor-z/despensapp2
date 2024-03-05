@@ -475,7 +475,7 @@
 			<div class="container-fluid">
 				<!-- Cinta de color para notificar la disponibilidad de ingredientes -->
 				<div th:switch="${ingredientAvailabilityStatus}">
-					<div th:case="${T(cl.ciisa.despensapp2.services.IngredientAvailability).COMPLETE}"
+					<!--<div th:case="${T(cl.ciisa.despensapp2.services.IngredientAvailability).COMPLETE}"
 						class="alert alert-success alert-dismissible fade show" role="alert">
 						<div class="row">
 							<div class="col-2 text-center">
@@ -489,7 +489,26 @@
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 							<span aria-hidden="true">×</span>
 						</button>
+					</div>-->
+					<div th:case="${T(cl.ciisa.despensapp2.services.IngredientAvailability).COMPLETE}"
+						class="alert alert-success alert-dismissible fade show" role="alert">
+						<div class="row">
+							<div class="col-2 text-center">
+								<i class="fa fa-check-circle fa-3x" aria-hidden="true"></i>
+							</div>
+							<div class="col-10">
+								<h5>¡Fantastico! Tienes todos los ingredientes para preparar esta receta :)</h5>
+								<!-- Botón Preparar Receta -->
+								<form th:action="@{/recipes/{recipeId}/prepare(recipeId=${recipe.id})}" method="post">
+									<button type="submit" class="btn btn-primary">Preparar Receta</button>
+								</form>
+							</div>
+						</div>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
 					</div>
+
 
 					<div th:case="${T(cl.ciisa.despensapp2.services.IngredientAvailability).PARTIAL}"
 						class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -543,13 +562,13 @@
 
 						<p></p>
 						<p>
-						<h4><i class="mdi mdi-account-multiple" ></i> Racionamiento:</h4>
+						<h4><i class="mdi mdi-account-multiple"></i> Racionamiento:</h4>
 						<ul>
 							<li><span th:text="${recipe.portions}">4</span> porciones.</li>
 						</ul>
 						</p>
 						<!-- Sección de Ingredientes -->
-						<h4><i class="mdi mdi-bowl" ></i> Ingredientes:</h4>
+						<h4><i class="mdi mdi-bowl"></i> Ingredientes:</h4>
 						<!--<ul>
 							<li th:each="ingredient : ${ingredients}">
 								<span
