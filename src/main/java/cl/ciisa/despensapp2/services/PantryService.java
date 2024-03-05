@@ -1,23 +1,35 @@
 package cl.ciisa.despensapp2.services;
 
 import cl.ciisa.despensapp2.model.Pantry;
+import cl.ciisa.despensapp2.model.ProductPantry;
 import cl.ciisa.despensapp2.model.User;
+import cl.ciisa.despensapp2.model.dto.PantryItemDTO;
 import cl.ciisa.despensapp2.repository.PantryRepository;
+import cl.ciisa.despensapp2.repository.ProductPantryRepository;
 import cl.ciisa.despensapp2.repository.UserRepository;
 import lombok.AllArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class PantryService {
 
-    private final PantryRepository pantryRepository;
+    //private final PantryRepository pantryRepository;
     private final UserRepository userRepository;
+    
+    @Autowired
+    private PantryRepository pantryRepository;
+
+    @Autowired
+    private ProductPantryRepository productPantryRepository;
+    
 
     public List<Pantry> findAll() {
         return pantryRepository.findAll();
@@ -64,4 +76,53 @@ public class PantryService {
 		return foundUserPantry;
     	
     }
+    
+    
+    //NUEVO 05-03-24
+    //Obtener Contenido de la despensa del usuario
+    public List<PantryItemDTO> getPantryContentsForUser(Long userId) {
+        // Aquí asumimos que ya tienes un método para encontrar la despensa del usuario por userId
+        Pantry userPantry = pantryRepository.findByUserUsername(userRepository.findById(userId).get().getUsername());//Ojo, Evaluar comportamiento
+
+        List<ProductPantry> pantryProducts = productPantryRepository.findByPantryUserUsername(userPantry.getUser().getUsername());
+        
+        // Convertir ProductPantry a PantryItemDTO
+        return pantryProducts.stream()
+                .map(productPantry -> new PantryItemDTO(
+                        productPantry.getProduct().getId(),
+                        productPantry.getProduct().getName(),
+                        productPantry.getQuantity(),
+                        productPantry.getProduct().getMeasureUnit().name()
+                ))
+                .collect(Collectors.toList());
+    }
+    
+    public List<PantryItemDTO> getPantryContentsForRecipeIngredients(Long userId, List<Long> ingredientProductIds) {
+        Pantry userPantry = pantryRepository.findByUserUsername(userRepository.findById(userId).get().getUsername());
+        
+        List<ProductPantry> filteredPantryProducts = productPantryRepository.findByPantryIdAndProductIdIn(userPantry.getId(), ingredientProductIds);
+
+        return filteredPantryProducts.stream()
+                .map(productPantry -> new PantryItemDTO(
+                        productPantry.getProduct().getId(),
+                        productPantry.getProduct().getName(),
+                        productPantry.getQuantity(),
+                        productPantry.getProduct().getMeasureUnit().name()
+                ))
+                .collect(Collectors.toList());
+    }
+    
+    /*
+    //Convertir a ProductPantryDTO **Puede que no sea necesario usarlo**
+    private ProductPantryDTO convertToProductPantryDTO(ProductPantry productPantry) {
+        // La implementación de este método dependerá de los campos disponibles en tu ProductPantry y ProductPantryDTO
+        return new ProductPantryDTO(
+                productPantry.getPantry().getId(),
+                productPantry.getProduct().getId(),
+                productPantry.getProduct().getName(),
+                productPantry.getProduct().getMeasureUnit().name(),
+                productPantry.getQuantity()
+        );
+    }
+    */
 }

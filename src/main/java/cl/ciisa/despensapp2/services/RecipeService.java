@@ -2,6 +2,7 @@ package cl.ciisa.despensapp2.services;
 
 import cl.ciisa.despensapp2.model.FoodRestriction;
 import cl.ciisa.despensapp2.model.Ingredient;
+import cl.ciisa.despensapp2.model.Product;
 import cl.ciisa.despensapp2.model.ProductPantry;
 import cl.ciisa.despensapp2.model.Recipe;
 import cl.ciisa.despensapp2.model.RecipeDifficulty;
@@ -96,24 +97,12 @@ public class RecipeService {
     public List<IngredientProductDTO> getIngredientsForRecipe(Long recipeId) {
         List<Ingredient> ingredients = ingredientRepository.findByRecipeId(recipeId);
         return ingredients.stream()
-                .map(ingredient -> new IngredientProductDTO(ingredient.getProduct().getName(),ingredient.getQuantity(),ingredient.getProduct().getMeasureUnit()))
+                .map(ingredient -> new IngredientProductDTO(ingredient.getProduct().getId(),ingredient.getProduct().getName(),ingredient.getQuantity(),ingredient.getProduct().getMeasureUnit()))
                 .collect(Collectors.toList());
     }
     
-    //Verificar existencia de ingredientes
-    /*
-    public IngredientAvailability checkIngredientsAvailability(Long recipeId, Long userId) {
-        // Logic to check if ingredients are available
-        // Return an enum or object indicating FULL, PARTIAL, or NONE availability
-    }
-
-    public boolean prepareRecipe(Long recipeId, Long userId) {
-        // Deduct ingredients from the pantry
-        // Return true if successful, false otherwise
-    }
-     */
     //03-03-24 Funcionalidades de verificacion y descuento de ingredientes
-    //Verificar Ingredientes en Despensa --NO FUNCIONA
+    //Verificar Ingredientes en Despensa --YA FUNCIONA
    
     public IngredientAvailability checkIngredientsAvailability(Long recipeId, Long userId) {
         List<Ingredient> ingredients = ingredientRepository.findByRecipeId(recipeId);
@@ -141,7 +130,7 @@ public class RecipeService {
         return allAvailable ? IngredientAvailability.COMPLETE : IngredientAvailability.PARTIAL;
     }
     
-    //Preparar Receta --NO FUNCIONA
+    //Preparar Receta --YA FUNCIONA
     
     @Transactional
     public boolean prepareRecipe(Long recipeId, Long userId) {
@@ -171,4 +160,18 @@ public class RecipeService {
                 .map(ingredient -> ingredient.getProduct().getName())
                 .collect(Collectors.toList());
     }
+    
+    //NUEVO 05-03-24 Convertir a IngredientDTO, es casi lo mismo que getIngredientsForRecipe
+    public List<IngredientProductDTO> convertToIngredientDTOs(List<Ingredient> ingredients) {
+        return ingredients.stream().map(ingredient -> {
+            Product product = ingredient.getProduct(); // Asume que Ingredient tiene una referencia a Product
+            return new IngredientProductDTO(
+            		product.getId(),
+                    product.getName(),
+                    ingredient.getQuantity(),
+                    product.getMeasureUnit()
+            );
+        }).collect(Collectors.toList());
+    }
+
 }

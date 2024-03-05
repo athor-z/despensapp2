@@ -475,21 +475,7 @@
 			<div class="container-fluid">
 				<!-- Cinta de color para notificar la disponibilidad de ingredientes -->
 				<div th:switch="${ingredientAvailabilityStatus}">
-					<!--<div th:case="${T(cl.ciisa.despensapp2.services.IngredientAvailability).COMPLETE}"
-						class="alert alert-success alert-dismissible fade show" role="alert">
-						<div class="row">
-							<div class="col-2 text-center">
-								<i class="fa fa-check-circle fa-3x" aria-hidden="true"></i>
-							</div>
-							<div class="col-10">
-								<h5>¡Fantastico! Tienes todos los
-									ingredientes para preparar esta receta :)</h5>
-							</div>
-						</div>
-						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>-->
+
 					<div th:case="${T(cl.ciisa.despensapp2.services.IngredientAvailability).COMPLETE}"
 						class="alert alert-success alert-dismissible fade show" role="alert">
 						<div class="row">
@@ -508,7 +494,6 @@
 							<span aria-hidden="true">×</span>
 						</button>
 					</div>
-
 
 					<div th:case="${T(cl.ciisa.despensapp2.services.IngredientAvailability).PARTIAL}"
 						class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -568,20 +553,43 @@
 						</ul>
 						</p>
 						<!-- Sección de Ingredientes -->
-						<h4><i class="mdi mdi-bowl"></i> Ingredientes:</h4>
-						<!--<ul>
-							<li th:each="ingredient : ${ingredients}">
-								<span
-									th:text="${ingredient.product.name} + ' - ' + ${ingredient.quantity} + ' ' + ${ingredient.product.measureUnit}">Nombre
-									del ingrediente - Cantidad - Unidad</span>
-							</li>
-						</ul>-->
+						<!--<h4><i class="mdi mdi-bowl"></i> Ingredientes:</h4>
+
 						<ul>
 							<li th:each="dto : ${ingredientDTOs}">
 								<span
-									th:text="${dto.productName} + ' - ' + ${dto.quantity} + ' ' + ${dto.measureUnit}">Ingredient</span>
+									th:text="${dto.productName} + ' - ' + ${dto.quantity} + ' ' + ${dto.measureUnit}">Ingrediente</span>
 							</li>
-						</ul>
+						</ul>-->
+						<div class="row">
+							<div class="col-md-6">
+								<h4><i class="mdi mdi-bowl"></i> Ingredientes necesarios:</h4>
+								<ul>
+									<li th:each="dto : ${ingredientDTOs}">
+										<span
+											th:text="${dto.productName} + ' - ' + ${dto.quantity} + ' ' + ${dto.measureUnit}">Ingredient</span>
+									</li>
+								</ul>
+							</div>
+							<div class="col-md-6">
+								<h4><i class="mdi mdi-basket-fill"></i> En tu despensa tienes:</h4>
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Ingrediente</th>
+											<th>Cantidad</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="pantryItem : ${pantryContents}">
+											<td th:text="${pantryItem.ingredientName}">Ingrediente</td>
+											<td th:text="${pantryItem.quantity} + ' ' + ${pantryItem.measureUnit}">
+												Cantidad</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
 						<h3>Instrucciones</h3>
 						<p th:utext="${recipe.description}">Instrucciones de la receta</p>
 

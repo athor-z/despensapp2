@@ -22,4 +22,6 @@ public interface ProductPantryRepository extends JpaRepository<ProductPantry, Pr
 	@Query("SELECT pp FROM ProductPantry pp WHERE pp.pantry.user.id = :userId AND pp.product.id = :productId")
 	Optional<ProductPantry> findByUserIdAndProductId(@Param("userId") Long userId, @Param("productId") Long productId);
 
+	
+	List<ProductPantry> findByPantryIdAndProductIdIn(Long pantryId, List<Long> productIds);
 }

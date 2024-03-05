@@ -2,6 +2,7 @@ package cl.ciisa.despensapp2.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,7 +16,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import cl.ciisa.despensapp2.model.Recipe;
 import cl.ciisa.despensapp2.model.User;
 import cl.ciisa.despensapp2.model.dto.IngredientProductDTO;
+import cl.ciisa.despensapp2.model.dto.PantryItemDTO;
 import cl.ciisa.despensapp2.services.IngredientAvailability;
+import cl.ciisa.despensapp2.services.PantryService;
 import cl.ciisa.despensapp2.services.RecipeService;
 import cl.ciisa.despensapp2.services.UserService;
 
@@ -28,18 +31,42 @@ public class RecipeWebController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	PantryService pantryService;
+	
     
 	@GetMapping("/recipes/{id}")
 	public String showRecipe(@PathVariable Long id, Model model, Principal principal) {
 	    Recipe recipe = recipeService.getRecipeById(id);
 	    
+	    //Nuevo 05-03-24 **Puede que no se necesite usar**
+	    /*
+	    Optional <User> optionalUser = userService.findUserById(userService.findUserIdByUsername(principal.getName()));
+	    if(optionalUser.isPresent()) {
+	    	User user = optionalUser.get();
+	    }
+	    */
+	    // Obtiene el nombre de usuario del usuario autenticado
+	    String username = principal.getName();
+	    Long userId = userService.findUserIdByUsername(username);
+	    
 	    if (recipe != null) {
+	    	// Usa método que devuelve los contenidos de la despensa del usuario
+	        //List<PantryItemDTO> pantryContents = pantryService.getPantryContentsForUser(userId);
+	    	
 	        List<IngredientProductDTO> ingredientDTOs = recipeService.getIngredientsForRecipe(id);
-	        model.addAttribute("recipe", recipe);
-	        model.addAttribute("ingredientDTOs", ingredientDTOs);
+	        List<Long> ingredientProductIds = ingredientDTOs.stream()
+	                .map(IngredientProductDTO::getId) // Asumiendo que IngredientProductDTO tiene un método getProductId
+	                .collect(Collectors.toList());
 
-	        String username = principal.getName(); // Obtiene el nombre de usuario del usuario autenticado
-	        Long userId = userService.findUserIdByUsername(username);
+	        List<PantryItemDTO> pantryContents = pantryService.getPantryContentsForRecipeIngredients(userId,ingredientProductIds);
+	        
+	        model.addAttribute("recipe", recipe); //Contenido de Receta
+	        model.addAttribute("ingredientDTOs", ingredientDTOs); //Lista de Ingredientes necesarios para la receta
+	        model.addAttribute("pantryContents", pantryContents); //Lista de Productos en despensa de usuario
+
+	        //String username = principal.getName(); // Obtiene el nombre de usuario del usuario autenticado
+	        //Long userId = userService.findUserIdByUsername(username);
 	        IngredientAvailability availability = recipeService.checkIngredientsAvailability(id, userId);
 	        model.addAttribute("ingredientAvailabilityStatus", availability);
 	        
@@ -50,22 +77,6 @@ public class RecipeWebController {
 	    }
 	    return "recipe-detail";
 	}
-	
-	//02-03-24
-	/*
-	@PostMapping("/recipes/{id}/prepare")
-	public String prepareRecipe(@PathVariable Long id, RedirectAttributes redirectAttrs) {
-	    boolean success = recipeService.prepareRecipe(id, getCurrentUserId());
-	    if (success) {
-	        redirectAttrs.addFlashAttribute("successMessage", "Recipe prepared successfully!");
-	    } else {
-	        redirectAttrs.addFlashAttribute("errorMessage", "Failed to prepare the recipe due to insufficient ingredients.");
-	    }
-	    return "redirect:/recipes/{id}";
-	}
-	*/
-	
-	//NUEO
 	
 	@PostMapping("/recipes/{recipeId}/prepare")
 	public String prepareRecipe(@PathVariable Long recipeId, Authentication authentication, RedirectAttributes redirectAttributes) {

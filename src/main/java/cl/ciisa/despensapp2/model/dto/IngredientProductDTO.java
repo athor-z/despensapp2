@@ -7,6 +7,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class IngredientProductDTO {
+	private Long id;
     private String productName;
     private int quantity;
     private MeasureUnit measureUnit;
