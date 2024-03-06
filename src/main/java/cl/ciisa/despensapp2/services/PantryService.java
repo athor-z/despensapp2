@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -96,33 +98,49 @@ public class PantryService {
                 ))
                 .collect(Collectors.toList());
     }
+    //Esto funciona, pero lo dejaré comentado sin borrar ya que es el original...
     
-    public List<PantryItemDTO> getPantryContentsForRecipeIngredients(Long userId, List<Long> ingredientProductIds) {
+    
+    public List<PantryItemDTO> getPantryContentsForRecipeIngredients(Long userId, Map<Long, Integer> requiredQuantities) {
+        // Obtener la despensa del usuario
         Pantry userPantry = pantryRepository.findByUserUsername(userRepository.findById(userId).get().getUsername());
         
+        // Filtrar los productos de la despensa basándose en los IDs de producto requeridos por la receta
+        List<ProductPantry> filteredPantryProducts = productPantryRepository.findByPantryIdAndProductIdIn(userPantry.getId(), new ArrayList<>(requiredQuantities.keySet()));
+
+        // Mapear a PantryItemDTO y establecer sufficientQuantity basado en la comparación de cantidades
+        return filteredPantryProducts.stream().map(productPantry -> {
+            boolean sufficientQuantity = productPantry.getQuantity() >= requiredQuantities.getOrDefault(productPantry.getProduct().getId(), 0);
+            return new PantryItemDTO(
+                    productPantry.getProduct().getId(),
+                    productPantry.getProduct().getName(),
+                    productPantry.getQuantity(),
+                    productPantry.getProduct().getMeasureUnit().name(),
+                    sufficientQuantity
+            );
+        }).collect(Collectors.toList());
+    }
+    
+    
+    
+    /*
+    public List<PantryItemDTO> getPantryContentsForRecipeIngredients(Long userId, List<Long> ingredientProductIds, Map<Long, Integer> requiredQuantities) {
+        Pantry userPantry = pantryRepository.findByUserUsername(userRepository.findById(userId).get().getUsername());
         List<ProductPantry> filteredPantryProducts = productPantryRepository.findByPantryIdAndProductIdIn(userPantry.getId(), ingredientProductIds);
 
         return filteredPantryProducts.stream()
-                .map(productPantry -> new PantryItemDTO(
-                        productPantry.getProduct().getId(),
-                        productPantry.getProduct().getName(),
-                        productPantry.getQuantity(),
-                        productPantry.getProduct().getMeasureUnit().name()
-                ))
+                .map(productPantry -> {
+                    boolean sufficientQuantity = productPantry.getQuantity() >= requiredQuantities.get(productPantry.getProduct().getId());
+                    return new PantryItemDTO(
+                            productPantry.getProduct().getId(),
+                            productPantry.getProduct().getName(),
+                            productPantry.getQuantity(),
+                            productPantry.getProduct().getMeasureUnit().name(),
+                            sufficientQuantity // Aquí se añade el nuevo campo a PantryItemDTO
+                    );
+                })
                 .collect(Collectors.toList());
     }
-    
-    /*
-    //Convertir a ProductPantryDTO **Puede que no sea necesario usarlo**
-    private ProductPantryDTO convertToProductPantryDTO(ProductPantry productPantry) {
-        // La implementación de este método dependerá de los campos disponibles en tu ProductPantry y ProductPantryDTO
-        return new ProductPantryDTO(
-                productPantry.getPantry().getId(),
-                productPantry.getProduct().getId(),
-                productPantry.getProduct().getName(),
-                productPantry.getProduct().getMeasureUnit().name(),
-                productPantry.getQuantity()
-        );
-    }
     */
+    
 }

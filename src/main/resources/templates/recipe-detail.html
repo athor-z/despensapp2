@@ -576,16 +576,26 @@
 								<table class="table">
 									<thead>
 										<tr>
+											<th> </th>
 											<th>Ingrediente</th>
 											<th>Cantidad</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr th:each="pantryItem : ${pantryContents}">
+											<td th:text="${pantryItem.sufficientQuantity ? '✓' : '✗'}">Disponible</td>
 											<td th:text="${pantryItem.ingredientName}">Ingrediente</td>
 											<td th:text="${pantryItem.quantity} + ' ' + ${pantryItem.measureUnit}">
 												Cantidad</td>
 										</tr>
+										<!-- Nueva sección para ingredientes faltantes -->
+										<th:block th:if="${T(cl.ciisa.despensapp2.services.IngredientAvailability).PARTIAL}">
+											<tr th:each="missingIngredient : ${missingIngredients}">
+												<td>✗</td>
+												<td th:text="${missingIngredient}"></td>
+												<td>0</td>
+											</tr>
+										</th:block>
 									</tbody>
 								</table>
 							</div>

@@ -6,17 +6,26 @@ public class PantryItemDTO {
     private String ingredientName;
     private double quantity;
     private String measureUnit;
+    private boolean sufficientQuantity;
+
+    public PantryItemDTO(Long productId, String ingredientName, double quantity, String measureUnit, boolean sufficientQuantity) {
+        this.productId = productId;
+        this.ingredientName = ingredientName;
+        this.quantity = quantity;
+        this.measureUnit = measureUnit;
+        this.setSufficientQuantity(sufficientQuantity);
+    }
+
+    // Getters y Setters
 
     public PantryItemDTO(Long productId, String ingredientName, double quantity, String measureUnit) {
         this.productId = productId;
         this.ingredientName = ingredientName;
         this.quantity = quantity;
         this.measureUnit = measureUnit;
-    }
+	}
 
-    // Getters y Setters
-
-    public Long getProductId() {
+	public Long getProductId() {
         return productId;
     }
 
@@ -48,6 +57,14 @@ public class PantryItemDTO {
         this.measureUnit = measureUnit;
     }
 
+	public boolean isSufficientQuantity() {
+		return sufficientQuantity;
+	}
+
+	public void setSufficientQuantity(boolean sufficientQuantity) {
+		this.sufficientQuantity = sufficientQuantity;
+	}
+    
     // Método toString() opcional para facilitar la depuración
     @Override
     public String toString() {
@@ -56,6 +73,9 @@ public class PantryItemDTO {
                 ", ingredientName='" + ingredientName + '\'' +
                 ", quantity=" + quantity +
                 ", measureUnit='" + measureUnit + '\'' +
+                ", sufficientQuantity='" + sufficientQuantity + '\''+
                 '}';
     }
+
+
 }

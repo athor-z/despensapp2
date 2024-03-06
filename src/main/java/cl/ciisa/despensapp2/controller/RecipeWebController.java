@@ -2,6 +2,7 @@ package cl.ciisa.despensapp2.controller;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,13 +40,6 @@ public class RecipeWebController {
 	public String showRecipe(@PathVariable Long id, Model model, Principal principal) {
 	    Recipe recipe = recipeService.getRecipeById(id);
 	    
-	    //Nuevo 05-03-24 **Puede que no se necesite usar**
-	    /*
-	    Optional <User> optionalUser = userService.findUserById(userService.findUserIdByUsername(principal.getName()));
-	    if(optionalUser.isPresent()) {
-	    	User user = optionalUser.get();
-	    }
-	    */
 	    // Obtiene el nombre de usuario del usuario autenticado
 	    String username = principal.getName();
 	    Long userId = userService.findUserIdByUsername(username);
@@ -54,12 +48,18 @@ public class RecipeWebController {
 	    	// Usa método que devuelve los contenidos de la despensa del usuario
 	        //List<PantryItemDTO> pantryContents = pantryService.getPantryContentsForUser(userId);
 	    	
+	    	// Obtener IngredientProductDTOs para la receta, que incluyen la cantidad requerida
 	        List<IngredientProductDTO> ingredientDTOs = recipeService.getIngredientsForRecipe(id);
+	        // Crear un mapa de las cantidades requeridas para cada ingrediente/producto
+	        Map<Long, Integer> IngredientProductRequiredQuantities = ingredientDTOs.stream()
+	                .collect(Collectors.toMap(IngredientProductDTO::getId, IngredientProductDTO::getQuantity));
+	        /*
 	        List<Long> ingredientProductIds = ingredientDTOs.stream()
 	                .map(IngredientProductDTO::getId) // Asumiendo que IngredientProductDTO tiene un método getProductId
 	                .collect(Collectors.toList());
-
-	        List<PantryItemDTO> pantryContents = pantryService.getPantryContentsForRecipeIngredients(userId,ingredientProductIds);
+	        */
+	        		
+	        List<PantryItemDTO> pantryContents = pantryService.getPantryContentsForRecipeIngredients(userId,IngredientProductRequiredQuantities);
 	        
 	        model.addAttribute("recipe", recipe); //Contenido de Receta
 	        model.addAttribute("ingredientDTOs", ingredientDTOs); //Lista de Ingredientes necesarios para la receta
