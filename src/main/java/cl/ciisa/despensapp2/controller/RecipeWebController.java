@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import cl.ciisa.despensapp2.model.Recipe;
 import cl.ciisa.despensapp2.model.User;
 import cl.ciisa.despensapp2.model.dto.IngredientProductDTO;
+import cl.ciisa.despensapp2.model.dto.MissingIngredientDTO;
 import cl.ciisa.despensapp2.model.dto.PantryItemDTO;
 import cl.ciisa.despensapp2.services.IngredientAvailability;
 import cl.ciisa.despensapp2.services.PantryService;
@@ -71,7 +72,7 @@ public class RecipeWebController {
 	        model.addAttribute("ingredientAvailabilityStatus", availability);
 	        
             if (availability == IngredientAvailability.PARTIAL) {
-                List<String> missingIngredients = recipeService.getMissingIngredients(id, userId); //Esto debe listar los ingredientes faltantes del usuario
+                List<MissingIngredientDTO> missingIngredients = recipeService.getMissingIngredients(id, userId); //Esto debe listar los ingredientes faltantes del usuario
                 model.addAttribute("missingIngredients", missingIngredients);
             }
 	    }

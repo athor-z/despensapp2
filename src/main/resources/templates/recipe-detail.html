@@ -588,12 +588,13 @@
 											<td th:text="${pantryItem.quantity} + ' ' + ${pantryItem.measureUnit}">
 												Cantidad</td>
 										</tr>
-										<!-- Nueva sección para ingredientes faltantes -->
-										<th:block th:if="${T(cl.ciisa.despensapp2.services.IngredientAvailability).PARTIAL}">
+										<!-- Nueva sección para ingredientes faltantes, AthorTruco ;) -->
+										<th:block
+											th:if="${T(cl.ciisa.despensapp2.services.IngredientAvailability).PARTIAL}">
 											<tr th:each="missingIngredient : ${missingIngredients}">
 												<td>✗</td>
-												<td th:text="${missingIngredient}"></td>
-												<td>0</td>
+												<td th:text="${missingIngredient.name}"></td>
+												<td th:text="'0 ' + ${missingIngredient.measureUnit}"></td>
 											</tr>
 										</th:block>
 									</tbody>

@@ -8,6 +8,7 @@ import cl.ciisa.despensapp2.model.Recipe;
 import cl.ciisa.despensapp2.model.RecipeDifficulty;
 import cl.ciisa.despensapp2.model.User;
 import cl.ciisa.despensapp2.model.dto.IngredientProductDTO;
+import cl.ciisa.despensapp2.model.dto.MissingIngredientDTO;
 import cl.ciisa.despensapp2.repository.IngredientRepository;
 import cl.ciisa.despensapp2.repository.ProductPantryRepository;
 import cl.ciisa.despensapp2.repository.RecipeRepository;
@@ -150,6 +151,8 @@ public class RecipeService {
     }
     
     // Método para obtener los ingredientes que faltan para una receta dada un ID de receta y un ID de usuario
+    //Esto está Funcionando bien...
+    /*
     public List<String> getMissingIngredients(Long recipeId, Long userId) {
         List<Ingredient> ingredients = ingredientRepository.findByRecipeId(recipeId);
         return ingredients.stream()
@@ -160,7 +163,20 @@ public class RecipeService {
                 .map(ingredient -> ingredient.getProduct().getName())
                 .collect(Collectors.toList());
     }
-    
+    */
+    public List<MissingIngredientDTO> getMissingIngredients(Long recipeId, Long userId) {
+        List<Ingredient> ingredients = ingredientRepository.findByRecipeId(recipeId);
+        return ingredients.stream()
+                .filter(ingredient -> {
+                    Optional<ProductPantry> productPantryOpt = productPantryRepository.findByUserIdAndProductId(userId, ingredient.getProduct().getId());
+                    return productPantryOpt.isEmpty() || productPantryOpt.get().getQuantity() < ingredient.getQuantity();
+                })
+                .map(ingredient -> new MissingIngredientDTO(
+                    ingredient.getProduct().getName(),
+                    ingredient.getProduct().getMeasureUnit() // No es necesario llamar a .name() ya que MeasureUnit es el tipo esperado
+                ))
+                .collect(Collectors.toList());
+    }
     //NUEVO 05-03-24 Convertir a IngredientDTO, es casi lo mismo que getIngredientsForRecipe
     public List<IngredientProductDTO> convertToIngredientDTOs(List<Ingredient> ingredients) {
         return ingredients.stream().map(ingredient -> {
