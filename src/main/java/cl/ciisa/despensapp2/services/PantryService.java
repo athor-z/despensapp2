@@ -79,8 +79,6 @@ public class PantryService {
     	
     }
     
-    
-    //NUEVO 05-03-24
     //Obtener Contenido de la despensa del usuario
     public List<PantryItemDTO> getPantryContentsForUser(Long userId) {
         // Aquí asumimos que ya tienes un método para encontrar la despensa del usuario por userId
@@ -98,9 +96,7 @@ public class PantryService {
                 ))
                 .collect(Collectors.toList());
     }
-    //Esto funciona, pero lo dejaré comentado sin borrar ya que es el original...
-    
-    
+
     public List<PantryItemDTO> getPantryContentsForRecipeIngredients(Long userId, Map<Long, Integer> requiredQuantities) {
         // Obtener la despensa del usuario
         Pantry userPantry = pantryRepository.findByUserUsername(userRepository.findById(userId).get().getUsername());
@@ -120,27 +116,5 @@ public class PantryService {
             );
         }).collect(Collectors.toList());
     }
-    
-    
-    
-    /*
-    public List<PantryItemDTO> getPantryContentsForRecipeIngredients(Long userId, List<Long> ingredientProductIds, Map<Long, Integer> requiredQuantities) {
-        Pantry userPantry = pantryRepository.findByUserUsername(userRepository.findById(userId).get().getUsername());
-        List<ProductPantry> filteredPantryProducts = productPantryRepository.findByPantryIdAndProductIdIn(userPantry.getId(), ingredientProductIds);
-
-        return filteredPantryProducts.stream()
-                .map(productPantry -> {
-                    boolean sufficientQuantity = productPantry.getQuantity() >= requiredQuantities.get(productPantry.getProduct().getId());
-                    return new PantryItemDTO(
-                            productPantry.getProduct().getId(),
-                            productPantry.getProduct().getName(),
-                            productPantry.getQuantity(),
-                            productPantry.getProduct().getMeasureUnit().name(),
-                            sufficientQuantity // Aquí se añade el nuevo campo a PantryItemDTO
-                    );
-                })
-                .collect(Collectors.toList());
-    }
-    */
     
 }

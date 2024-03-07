@@ -8,8 +8,9 @@ import lombok.Data;
 @AllArgsConstructor
 public class MissingIngredientDTO {
 
-	
+	private Long productId;
     private String name;
     private MeasureUnit measureUnit;
-
+    private boolean isPresentInInsufficientQuantity; // Nuevo campo
+    
 }

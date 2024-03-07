@@ -504,7 +504,7 @@
 							<div class="col-10">
 								<h5>¡Ups! Te faltan algunos ingredientes para preparar la receta:</h5>
 								<ul>
-									<li th:each="ingredient : ${missingIngredients}" th:text="${ingredient}"></li>
+									<li th:each="ingredient : ${missingIngredients}" th:text="${ingredient.name}"></li>
 								</ul>
 							</div>
 						</div>
@@ -590,11 +590,12 @@
 										</tr>
 										<!-- Nueva sección para ingredientes faltantes, AthorTruco ;) -->
 										<th:block
-											th:if="${T(cl.ciisa.despensapp2.services.IngredientAvailability).PARTIAL}">
-											<tr th:each="missingIngredient : ${missingIngredients}">
+											th:if="${ingredientAvailabilityStatus == T(cl.ciisa.despensapp2.services.IngredientAvailability).PARTIAL}">
+											<tr th:each="missingIngredient : ${missingIngredients}"
+												th:unless="${#lists.contains(ingredientDTOs.![productName], missingIngredient.name)}">
 												<td>✗</td>
 												<td th:text="${missingIngredient.name}"></td>
-												<td th:text="'0 ' + ${missingIngredient.measureUnit}"></td>
+												<td th:text="'0.0 ' + ${missingIngredient.measureUnit}"></td>
 											</tr>
 										</th:block>
 									</tbody>

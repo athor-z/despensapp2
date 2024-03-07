@@ -46,28 +46,19 @@ public class RecipeWebController {
 	    Long userId = userService.findUserIdByUsername(username);
 	    
 	    if (recipe != null) {
-	    	// Usa método que devuelve los contenidos de la despensa del usuario
-	        //List<PantryItemDTO> pantryContents = pantryService.getPantryContentsForUser(userId);
 	    	
 	    	// Obtener IngredientProductDTOs para la receta, que incluyen la cantidad requerida
 	        List<IngredientProductDTO> ingredientDTOs = recipeService.getIngredientsForRecipe(id);
 	        // Crear un mapa de las cantidades requeridas para cada ingrediente/producto
 	        Map<Long, Integer> IngredientProductRequiredQuantities = ingredientDTOs.stream()
 	                .collect(Collectors.toMap(IngredientProductDTO::getId, IngredientProductDTO::getQuantity));
-	        /*
-	        List<Long> ingredientProductIds = ingredientDTOs.stream()
-	                .map(IngredientProductDTO::getId) // Asumiendo que IngredientProductDTO tiene un método getProductId
-	                .collect(Collectors.toList());
-	        */
-	        		
+	        // Usa método que devuelve los contenidos/articulos de la despensa del usuario		
 	        List<PantryItemDTO> pantryContents = pantryService.getPantryContentsForRecipeIngredients(userId,IngredientProductRequiredQuantities);
 	        
 	        model.addAttribute("recipe", recipe); //Contenido de Receta
 	        model.addAttribute("ingredientDTOs", ingredientDTOs); //Lista de Ingredientes necesarios para la receta
 	        model.addAttribute("pantryContents", pantryContents); //Lista de Productos en despensa de usuario
 
-	        //String username = principal.getName(); // Obtiene el nombre de usuario del usuario autenticado
-	        //Long userId = userService.findUserIdByUsername(username);
 	        IngredientAvailability availability = recipeService.checkIngredientsAvailability(id, userId);
 	        model.addAttribute("ingredientAvailabilityStatus", availability);
 	        
@@ -89,7 +80,7 @@ public class RecipeWebController {
 
 	        switch (availabilityStatus) {
 	            case COMPLETE:
-	                recipeService.prepareRecipe(recipeId, userId); // Asumiendo que este método ahora maneja la lógica de actualización de la despensa
+	                recipeService.prepareRecipe(recipeId, userId); // Este método ahora maneja la lógica de actualización de la despensa --FUNCIONANDO
 	                redirectAttributes.addFlashAttribute("successMessage", "La receta se ha preparado exitosamente y tu despensa ha sido actualizada.");
 	                break;
 	            case PARTIAL:

@@ -17,11 +17,8 @@ public interface ProductPantryRepository extends JpaRepository<ProductPantry, Pr
 	//long countByUserUsername(String username);
 	long countByPantryUserUsername(String username);
 	List<ProductPantry> findByPantryUserUsername(String username);
-	//03-03-24
-	//Optional<ProductPantry> findByUserIdAndProductId(Long userId, Long productId); //NO FUNCIONA
+	//Con JPQL Sí funciona
 	@Query("SELECT pp FROM ProductPantry pp WHERE pp.pantry.user.id = :userId AND pp.product.id = :productId")
 	Optional<ProductPantry> findByUserIdAndProductId(@Param("userId") Long userId, @Param("productId") Long productId);
-
-	
 	List<ProductPantry> findByPantryIdAndProductIdIn(Long pantryId, List<Long> productIds);
 }

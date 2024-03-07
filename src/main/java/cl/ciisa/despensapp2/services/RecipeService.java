@@ -151,30 +151,20 @@ public class RecipeService {
     }
     
     // Método para obtener los ingredientes que faltan para una receta dada un ID de receta y un ID de usuario
-    //Esto está Funcionando bien...
-    /*
-    public List<String> getMissingIngredients(Long recipeId, Long userId) {
-        List<Ingredient> ingredients = ingredientRepository.findByRecipeId(recipeId);
-        return ingredients.stream()
-                .filter(ingredient -> {
-                    Optional<ProductPantry> productPantryOpt = productPantryRepository.findByUserIdAndProductId(userId, ingredient.getProduct().getId());
-                    return productPantryOpt.isEmpty() || productPantryOpt.get().getQuantity() < ingredient.getQuantity();
-                })
-                .map(ingredient -> ingredient.getProduct().getName())
-                .collect(Collectors.toList());
-    }
-    */
     public List<MissingIngredientDTO> getMissingIngredients(Long recipeId, Long userId) {
         List<Ingredient> ingredients = ingredientRepository.findByRecipeId(recipeId);
         return ingredients.stream()
-                .filter(ingredient -> {
+                .map(ingredient -> {
                     Optional<ProductPantry> productPantryOpt = productPantryRepository.findByUserIdAndProductId(userId, ingredient.getProduct().getId());
-                    return productPantryOpt.isEmpty() || productPantryOpt.get().getQuantity() < ingredient.getQuantity();
+                    boolean isPresentInInsufficientQuantity = productPantryOpt.isPresent() && productPantryOpt.get().getQuantity() < ingredient.getQuantity();
+                    return new MissingIngredientDTO(
+                        ingredient.getProduct().getId(), // Pasar productId al constructor
+                        ingredient.getProduct().getName(),
+                        ingredient.getProduct().getMeasureUnit(),
+                        isPresentInInsufficientQuantity
+                    );
                 })
-                .map(ingredient -> new MissingIngredientDTO(
-                    ingredient.getProduct().getName(),
-                    ingredient.getProduct().getMeasureUnit() // No es necesario llamar a .name() ya que MeasureUnit es el tipo esperado
-                ))
+                .filter(dto -> dto.isPresentInInsufficientQuantity() || !productPantryRepository.findByUserIdAndProductId(userId, dto.getProductId()).isPresent())
                 .collect(Collectors.toList());
     }
     //NUEVO 05-03-24 Convertir a IngredientDTO, es casi lo mismo que getIngredientsForRecipe
