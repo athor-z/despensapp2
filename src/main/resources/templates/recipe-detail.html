@@ -591,8 +591,10 @@
 										<!-- Nueva sección para ingredientes faltantes, AthorTruco ;) -->
 										<th:block
 											th:if="${ingredientAvailabilityStatus == T(cl.ciisa.despensapp2.services.IngredientAvailability).PARTIAL}">
-											<tr th:each="missingIngredient : ${missingIngredients}"
-												th:unless="${#lists.contains(ingredientDTOs.![productName], missingIngredient.name)}">
+											<!--<tr th:each="missingIngredient : ${missingIngredients}"
+												th:unless="${#lists.contains(ingredientDTOs.![productName], missingIngredient.name)}">-->
+												<tr th:each="missingIngredient : ${missingIngredients}" 
+            									th:if="${#lists.contains(pantryContents.![ingredientName], missingIngredient.name) == false}">
 												<td>✗</td>
 												<td th:text="${missingIngredient.name}"></td>
 												<td th:text="'0.0 ' + ${missingIngredient.measureUnit}"></td>
