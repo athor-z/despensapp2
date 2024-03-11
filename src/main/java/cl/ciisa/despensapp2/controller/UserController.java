@@ -1,6 +1,7 @@
 package cl.ciisa.despensapp2.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cl.ciisa.despensapp2.model.FoodRestriction;
 import cl.ciisa.despensapp2.model.User;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
@@ -24,12 +26,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@RestController
+//@RestController //Ya no será REST
+@Controller
 @RequestMapping("/users")
 public class UserController {
 	
 	@Autowired
     private UserService userService;
+	
 	@Autowired
     private UserRepository userRepository;
     @Autowired
@@ -37,12 +41,27 @@ public class UserController {
         this.userService = userService;
     }
    
+    //NUEVO 10-03-24
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", new User());
+        return "user-register";
+    }
     
+    @PostMapping("/register")
+    public String createUser(User user, RedirectAttributes redirectAttributes) {
+        userService.createUser(user);
+        redirectAttributes.addFlashAttribute("message", "Usuario DespensApp creado con exito!");
+        return "redirect:/users/register";
+    }
+    
+    /*
     @PostMapping
     public User createUser(@RequestBody User user) {
         return userService.createUser(user);
     }
-
+	*/
+    
     @GetMapping("/find/{id}")
     public Optional<User> findUserById(@PathVariable Long id) {
         return userService.findUserById(id);
@@ -122,5 +141,8 @@ public class UserController {
         return "profile"; // Reemplaza con el nombre de tu vista Thymeleaf para el perfil de usuario
     }
 */
+    
+
+    
 }
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import cl.ciisa.despensapp2.model.FoodRestriction;
+import cl.ciisa.despensapp2.model.Pantry;
 import cl.ciisa.despensapp2.model.User;
 import cl.ciisa.despensapp2.repository.UserRepository;
 
@@ -23,6 +24,10 @@ public class UserService{
 //    private UserService userService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    //Nuevo 10-03-24
+    @Autowired
+    private PantryService pantryService; // Asegúrate de tener esta referencia
 
     // constructor and other methods omitted for brevity
     
@@ -36,12 +41,30 @@ public class UserService{
       return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
     }
     */
+    
+    /*
     @PostMapping
     public User createUser(@RequestBody User user) {
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encodedPassword);
         //return userService.createUser(user);
         return userRepository.save(user);
+    }    
+    */
+    
+    public User createUser(User user) {
+        // Codifica la contraseña y guarda el usuario
+        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(encodedPassword);
+        User savedUser = userRepository.save(user); // Usuario guardado con éxito
+
+        // Crear y asociar una nueva despensa al usuario
+        Pantry newPantry = new Pantry();
+        newPantry.setName("Despensa de " + savedUser.getUsername()); // O cualquier nombre por defecto
+        newPantry.setUser(savedUser);
+        pantryService.save(newPantry); // Guarda la despensa con la referencia al usuario
+
+        return savedUser;
     }    
     
     public boolean checkPassword(User user, String password) {
