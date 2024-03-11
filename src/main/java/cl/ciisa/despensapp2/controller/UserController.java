@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 //@RestController //Ya no será REST
 @Controller
@@ -56,6 +58,16 @@ public class UserController {
         redirectAttributes.addFlashAttribute("registrationSuccess", "Registro exitoso. Por favor, inicia sesión.");
         // Redirige a la página de login
         return "redirect:/login"; //Se cambia a redirect para pasar el FlashAttribute a la URL de Login
+    }
+    
+    // Método para verificar la disponibilidad del nombre de usuario
+    @GetMapping("/check-username")
+    @ResponseBody
+    public String checkUsernameAvailability(@RequestParam String username) {
+    	System.out.println("DEBUG DespensApp --- Valor String Username recibido: " + username); //Para DEBUG
+    	boolean available = !userService.existsByUsername(username);
+        System.out.println("DEBUG DespensApp --- Valor bool Username disponible: " + available);  //Para DEBUG
+        return available ? "Disponible" : "No disponible";
     }
     
     /*

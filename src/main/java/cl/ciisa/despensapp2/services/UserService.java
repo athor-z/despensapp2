@@ -99,4 +99,9 @@ public class UserService{
         return userRepository.findUserIdByUsername(username);
     }
 
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+    
+    
 }
