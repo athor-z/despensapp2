@@ -51,8 +51,11 @@ public class UserController {
     @PostMapping("/register")
     public String createUser(User user, RedirectAttributes redirectAttributes) {
         userService.createUser(user);
-        redirectAttributes.addFlashAttribute("message", "Usuario DespensApp creado con exito!");
-        return "redirect:/users/register";
+     //  redirectAttributes.addFlashAttribute("message", "Usuario DespensApp creado con exito!");
+     // Agrega un mensaje de éxito que se mostrará en la página de login
+        redirectAttributes.addFlashAttribute("registrationSuccess", "Registro exitoso. Por favor, inicia sesión.");
+        // Redirige a la página de login
+        return "redirect:/login"; //Se cambia a redirect para pasar el FlashAttribute a la URL de Login
     }
     
     /*
