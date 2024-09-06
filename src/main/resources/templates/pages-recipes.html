@@ -49,7 +49,7 @@
                     <!-- Logo -->
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
-                        <a href="index" class="logo">
+                        <a th:href="@{/}" class="logo">
                             <!-- Logo icon -->
                             <b class="logo-icon">
                                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -452,7 +452,7 @@
                         <div class="card-body">
                             <h4 class="card-title">Nuestras últimas Recetas</h4>
                         </div>
-                        <div class="comment-widgets scrollable" style="height: 430px;">
+                        <div>
                             <!-- Itera sobre las últimas recetas -->
                             <div th:each="recipe : ${latestRecipes}" class="d-flex flex-row comment-row">
                                 <div class="p-2">
