@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import cl.ciisa.despensapp2.model.FoodRestriction;
 import cl.ciisa.despensapp2.model.Pantry;
 import cl.ciisa.despensapp2.model.User;

@@ -1,6 +1,5 @@
 package cl.ciisa.despensapp2.controller;
 
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cl.ciisa.despensapp2.model.FoodRestriction;

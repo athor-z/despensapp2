@@ -64,6 +64,8 @@ public class UserPantryWebController {
 		model.addAttribute("userPantryName", pantryName);
 		model.addAttribute("editMode", false);
 		model.addAttribute("productList", productList);
+		model.addAttribute("username",username);
+        model.addAttribute("userEmail",userEmail);
 
 		return "user-pantry"; // Nombre de la plantilla Thymeleaf para la página de despensa del usuario
 	}
