@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import cl.ciisa.despensapp2.model.Product;
 import cl.ciisa.despensapp2.model.Recipe;
 import cl.ciisa.despensapp2.model.User;
 import cl.ciisa.despensapp2.model.dto.IngredientProductDTO;
@@ -21,6 +22,8 @@ import cl.ciisa.despensapp2.model.dto.MissingIngredientDTO;
 import cl.ciisa.despensapp2.model.dto.PantryItemDTO;
 import cl.ciisa.despensapp2.services.IngredientAvailability;
 import cl.ciisa.despensapp2.services.PantryService;
+import cl.ciisa.despensapp2.services.ProductPantryService;
+import cl.ciisa.despensapp2.services.ProductService;
 import cl.ciisa.despensapp2.services.RecipeService;
 import cl.ciisa.despensapp2.services.UserService;
 
@@ -36,6 +39,12 @@ public class RecipeWebController {
 	@Autowired
 	PantryService pantryService;
 	
+	 @Autowired
+    private ProductService productService;
+   
+    @Autowired
+    private ProductPantryService productPantryService;
+   
     
 	@GetMapping("/recipes/{id}")
 	public String showRecipe(@PathVariable Long id, Model model, Principal principal) {
@@ -97,6 +106,35 @@ public class RecipeWebController {
 	        return "redirect:/recipes/" + recipeId;
 	    }
 	}
+
+	@GetMapping("/recipe-list")
+    public String showAllRecipe(Model model, Principal principal) {
+    	String username = principal.getName();
+    	String userEmail = userService.findEmailByUsername(username);
+    	List<Recipe> allRecipes = recipeService.getAllRecipes();
+    	
+       
+        List<Recipe> latestRecipes = allRecipes;
+    	
+    	long productPantryCount = productPantryService.countProductsInPantryByUsername(username);
+    	
+    	long productCount = productService.getCountOfProducts();
+        List<Product> products = productService.findAll();
+        long recipeCount = recipeService.getCountOfRecipes();
+        List<Recipe> recipes = recipeService.getAllRecipes();
+        
+        
+        model.addAttribute("productCount", productCount);
+        model.addAttribute("products", products);
+        model.addAttribute("recipeCount", recipeCount);
+        model.addAttribute("recipes", recipes);
+        model.addAttribute("productPantryCount", productPantryCount);
+        model.addAttribute("username",username);
+        model.addAttribute("userEmail",userEmail);
+        model.addAttribute("latestRecipes", latestRecipes); //ultimas recetas
+        
+        return "pages-recipes"; // Aquí devuelves el nombre de la plantilla Thymeleaf para la página de inicio
+    }
 
 
 }

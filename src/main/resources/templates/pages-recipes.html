@@ -447,97 +447,69 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Only Content Scroll</h4>
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-3"><img src="../../assets/images/big/img1.jpg" class="img-fluid" /></div>
-                                    <div class="col-lg-8 col-md-9" id="slimtest1" style="height: 250px;">
-                                        <div>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                            <p>Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat. </p>
-                                            <p>Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar.</p>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                            <p>Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat. </p>
-                                            <p>Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar.</p>
-                                            <p>Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat. </p>
-                                            <p>Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="col-lg-12 col-md-12 order-lg-4 order-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Nuestras últimas Recetas</h4>
                         </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Both image and content Scroll</h4>
-                                <div class="row">
-                                    <div class="col-lg-12" id="slimtest2" style="height: 250px;">
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-3"><img src="../../assets/images/big/img2.jpg" class="img-fluid" /></div>
-                                            <div class="col-lg-8 col-md-9">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                                <p>Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat. </p>
-                                                <p>Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar.</p>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                                <p>Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat. </p>
-                                                <p>Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar.</p>
-                                                <p>Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat. </p>
-                                                <p>Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar.</p>
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div class="comment-widgets scrollable" style="height: 430px;">
+                            <!-- Itera sobre las últimas recetas -->
+                            <div th:each="recipe : ${latestRecipes}" class="d-flex flex-row comment-row">
+                                <div class="p-2">
+                                    <img th:src="${recipe.image}" alt="Recipe Image" width="50"
+                                        class="rounded-circle">
                                 </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Scroll on Left</h4>
-                                <div class="row">
-                                    <div class="col-lg-12" id="slimtest3" style="height: 250px;">
-                                        <div class="row">
-                                            <div class="col-lg-8 col-md-9">
-                                                <div class="p-l-20">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                                    <p>Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat. </p>
-                                                    <p>Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar.</p>
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                                    <p>Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat. </p>
-                                                    <p>Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar.</p>
-                                                    <p>Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat. </p>
-                                                    <p>Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar.</p>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-4 col-md-3"><img src="../../assets/images/big/img3.jpg" class="img-fluid" /></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h4 class="card-title">Custom Scroll Color</h4>
-                                <div class="row">
-                                    <div class="col-lg-12" id="slimtest4" style="height: 250px;">
-                                        <div class="row">
-                                            <div class="col-lg-4 col-md-3"><img src="../../assets/images/big/img4.jpg" class="img-fluid" /></div>
-                                            <div class="col-lg-8 col-md-9">
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                                <p>Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat. </p>
-                                                <p>Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar.</p>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus, felis interdum condimentum consectetur, nisl libero elementum eros, vehicula congue lacus eros non diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
-                                                <p>Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat. </p>
-                                                <p>Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar.</p>
-                                                <p>Vivamus mauris lorem, lacinia id tempus non, imperdiet et leo. Cras sit amet erat sit amet lacus egestas placerat. </p>
-                                                <p>Aenean ultricies ultrices mauris ac congue. In vel tortor vel velit tristique tempus ac id nisi. Proin quis lorem velit. Nunc dui dui, blandit a ullamcorper vitae, congue fringilla lectus. Aliquam ultricies malesuada feugiat. Vestibulum placerat turpis et eros lobortis vel semper sapien pulvinar.</p>
-                                            </div>
-                                        </div>
+                                <div class="comment-text w-100">
+                                    <h6 class="font-medium" th:text="${recipe.name}"></h6>
+                                    <span class="m-b-15 d-block" th:text="${recipe.shortDescription}"></span>
+                                    <div class="comment-footer">
+                                        <!--<span class="text-muted float-right" th:text="${recipe.restriction}"></span>-->
+                                        <!--<span th:utext="${'Valor de recipe.restriction: ' + recipe.restriction}"></span>-->
+                                        <span class="text-muted float-right">
+                                            <span th:switch="${recipe.restriction}">
+                                                <span
+                                                    th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).NONE}">
+                                                </span>
+                                                <span
+                                                    th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).VEGETARIANO}">Recomendado
+                                                    para Vegetarianos</span>
+                                                <span
+                                                    th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).VEGANO}">Recomendado
+                                                    para Veganos</span>
+                                                <span
+                                                    th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).SIN_GLUTEN}">Receta
+                                                    Sin gluten</span>
+                                                <span
+                                                    th:case="${T(cl.ciisa.despensapp2.model.FoodRestriction).SIN_LACTOSA}">Receta
+                                                    Sin lactosa</span>
+                                                <span th:case="*">N/A</span>
+                                            </span>
+                                        </span>
+                                        <span class="label label-rounded"> Dificultad:
+                                            <!--<span th:text="${recipe.difficulty}"></span>-->
+                                            <span th:switch="${recipe.difficulty}">
+                                                <span
+                                                    th:case="${T(cl.ciisa.despensapp2.model.RecipeDifficulty).FACIL}"
+                                                    class="label label-rounded label-success">Fácil</span>
+                                                <span
+                                                    th:case="${T(cl.ciisa.despensapp2.model.RecipeDifficulty).INTERMEDIO}"
+                                                    class="label label-rounded label-warning">Intermedia</span>
+                                                <span
+                                                    th:case="${T(cl.ciisa.despensapp2.model.RecipeDifficulty).COMPLEJO}"
+                                                    class="label label-rounded label-danger">Compleja</span>
+                                                <span th:case="*">DIFF</span>
+                                            </span>
+
+                                        </span>
+                                        <span class="action-icons">
+                                            <a th:href="@{/recipes/{id}(id=${recipe.id})}">Ver receta <i class="mdi mdi-open-in-new"></i></a>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>                  
                 </div>
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
