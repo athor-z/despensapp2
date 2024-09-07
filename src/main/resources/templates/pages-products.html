@@ -151,7 +151,7 @@
 								<div class="profile-dis scrollable">
 									<!--<a class="dropdown-item" href="javascript:void(0)">
                                         <i class="ti-user m-r-5 m-l-5"></i> Mi Perfil</a>-->
-									<a class="dropdown-item" href="/pantry">
+									<a class="dropdown-item" href="@{/pantry}">
 										<i class="ti-wallet m-r-5 m-l-5"></i> Mi Despensa</a>
 									<!--<a class="dropdown-item" href="javascript:void(0)">
                                         <i class="ti-email m-r-5 m-l-5"></i> Inbox</a>-->
@@ -212,12 +212,6 @@
 										<span class="hide-menu"> Lista de Productos </span>
 									</a>
 								</li>
-								<li class="sidebar-item">
-									<a th:href="@{/pages-users}" class="sidebar-link">
-										<i class="mdi mdi-adjust"></i>
-										<span class="hide-menu"> Usuarios (SOLO TESTING!!) </span>
-									</a>
-								</li>
 							</ul>
 						</li>
 						<li class="sidebar-item">
@@ -228,7 +222,7 @@
 							</a>
 							<ul aria-expanded="false" class="collapse  first-level">
 								<li class="sidebar-item">
-									<a th:href="@{/pages-recipes}" class="sidebar-link">
+									<a th:href="@{/recipe-list}" class="sidebar-link">
 										<i class="mdi mdi-view-quilt"></i>
 										<span class="hide-menu"> Recetas DespensApp </span>
 									</a>
@@ -238,17 +232,10 @@
 						<li class="nav-small-cap">
 							<i class="mdi mdi-dots-horizontal"></i>
 							<span class="hide-menu">Mi Sesión</span>
-						</li>
-						<li class="sidebar-item">
-							<a class="sidebar-link waves-effect waves-dark sidebar-link" href="/docs/documentation.html"
-								aria-expanded="false">
-								<i class="mdi mdi-content-paste"></i>
-								<span class="hide-menu">Documentation</span>
-							</a>
-						</li>
+						</li>						
 						<li class="sidebar-item">
 							<a class="sidebar-link waves-effect waves-dark sidebar-link"
-								href="authentication-login1.html" aria-expanded="false">
+								href="/logout" aria-expanded="false">
 								<i class="mdi mdi-directions"></i>
 								<span class="hide-menu">Cerrar Sesión</span>
 							</a>

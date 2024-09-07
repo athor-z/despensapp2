@@ -314,7 +314,7 @@
                                     <a class="dropdown-item" href="javascript:void(0)">
                                         <i class="ti-settings m-r-5 m-l-5"></i> Configuracion de Cuenta</a>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="javascript:void(0)">
+                                    <a class="dropdown-item" href="@{/logout}">
                                         <i class="fa fa-power-off m-r-5 m-l-5"></i> Cerrar Sesion</a>
                                     <div class="dropdown-divider"></div>
                                 </div>
@@ -365,12 +365,6 @@
                                         <span class="hide-menu"> Lista de Productos </span>
                                     </a>
                                 </li>
-                                <li class="sidebar-item">
-                                    <a th:href="@{/pages-users}" class="sidebar-link">
-                                        <i class="mdi mdi-adjust"></i>
-                                        <span class="hide-menu"> Usuarios (SOLO TESTING!!) </span>
-                                    </a>
-                                </li>
                             </ul>
                         </li>
                         <li class="sidebar-item">
@@ -380,7 +374,7 @@
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
-                                    <a th:href="@{/pages-recipes}" class="sidebar-link">
+                                    <a th:href="@{/recipe-list}" class="sidebar-link">
                                         <i class="mdi mdi-view-quilt"></i>
                                         <span class="hide-menu"> Recetas DespensApp </span>
                                     </a>
@@ -399,7 +393,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="authentication-login1.html" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="/logout" aria-expanded="false">
                                 <i class="mdi mdi-directions"></i>
                                 <span class="hide-menu">Cerrar Sesión</span>
                             </a>
