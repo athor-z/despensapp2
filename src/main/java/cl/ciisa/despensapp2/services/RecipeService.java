@@ -179,5 +179,8 @@ public class RecipeService {
             );
         }).collect(Collectors.toList());
     }
-
+// Método para buscar recetas por palabra clave
+public List<Recipe> searchRecipesByKeyword(String keyword) {
+    return recipeRepository.findByNameContainingIgnoreCase(keyword);
+}
 }

@@ -15,6 +15,8 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 	List<Recipe> findByDifficulty(RecipeDifficulty difficulty);
 
 	List<Recipe> findByRestriction(FoodRestriction restriction);
+
+	List<Recipe> findByNameContainingIgnoreCase(String keyword);
 	
 	//List<Recipe> findTopNByOrderByIdDesc(int count);
 }

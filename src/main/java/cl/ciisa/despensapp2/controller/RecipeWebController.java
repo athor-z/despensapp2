@@ -1,6 +1,7 @@
 package cl.ciisa.despensapp2.controller;
 
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -12,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import cl.ciisa.despensapp2.model.Product;
@@ -134,6 +137,29 @@ public class RecipeWebController {
         model.addAttribute("latestRecipes", latestRecipes); //ultimas recetas
         
         return "pages-recipes"; // Aquí devuelves el nombre de la plantilla Thymeleaf para la página de inicio
+    }
+
+	@GetMapping("/search")
+    public String searchRecipes(@RequestParam("keyword") String keyword, Model model) {
+        List<Recipe> recipes = recipeService.searchRecipesByKeyword(keyword);
+        model.addAttribute("recipes", recipes);
+        return "recipe_search_results"; // Nombre de la vista donde se mostrarán los resultados
+    }
+    //Autocompletar en búsqueda
+    @GetMapping("/autocomplete")
+    @ResponseBody
+    public List<Map<String, Object>> autocompleteRecipes(@RequestParam("keyword") String keyword) {
+        List<Recipe> recipes = recipeService.searchRecipesByKeyword(keyword);
+        
+        // Convertimos las recetas a un formato más sencillo para enviar como JSON
+        return recipes.stream()
+                .map(recipe -> {
+                    Map<String, Object> map = new HashMap<>();
+                    map.put("id", recipe.getId());
+                    map.put("name", recipe.getName());
+                    return map;
+                })
+                .collect(Collectors.toList());
     }
 
 

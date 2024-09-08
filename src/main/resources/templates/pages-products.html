@@ -14,12 +14,7 @@
 	<link href="/assets/libs/footable/css/footable.core.min.css" rel="stylesheet">
 	<!-- Custom CSS -->
 	<link href="/dist/css/style.min.css" rel="stylesheet">
-	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
+	<link href="/dist/css/search.css" rel="stylesheet">
 </head>
 
 <body>
@@ -111,12 +106,13 @@
 									</div>
 								</div>
 							</a>
-							<form class="app-search position-absolute">
-								<input type="text" class="form-control"
-									placeholder="Qué te gustaría preparar hoy? - Escribe algo y dale Enter... ">
-								<a class="srh-btn">
-									<i class="ti-close"></i>
-								</a>
+							<form id="recipe-search-form" class="app-search position-absolute" onsubmit="return false;">
+							    <input type="text" id="recipe-search-input" name="keyword" class="form-control"
+							           placeholder="Qué te gustaría preparar hoy? - Escribe algo y dale Enter...">
+							    <div id="search-results" class="search-results"></div> <!-- Div para los resultados -->
+							    <a class="srh-btn">
+							        <i class="ti-close"></i>
+							    </a>
 							</form>
 						</li>
 					</ul>
@@ -500,6 +496,7 @@
 	<!--This page JavaScript -->
 	<script src="../../assets/libs/footable/dist/footable.all.min.js"></script>
 	<script src="../../dist/js/pages/tables/footable-init.js"></script>
+	<script src="/dist/js/searchAutocomplete.js"></script>
 </body>
 
 </html>
