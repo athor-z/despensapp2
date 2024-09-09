@@ -286,9 +286,38 @@
 			<!-- ============================================================== -->
 			<!-- Contenedor de la Receta -->
 			<div class="container-fluid">
+				
 				<!-- Cinta de color para notificar la disponibilidad de ingredientes -->
 				<div th:switch="${ingredientAvailabilityStatus}">
+					 <!-- Mostrar mensaje de éxito (receta preparada) solo si no hay mensaje de error -->
+    <div th:if="${successMessage != null && errorMessage == null}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <div class="row">
+            <div class="col-2 text-center">
+                <i class="fa fa-check-circle fa-3x" aria-hidden="true"></i>
+            </div>
+            <div class="col-10">
+                <h5 th:text="${successMessage}">¡La receta se ha preparado exitosamente!</h5>
+            </div>
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
 
+    <!-- Mostrar mensaje de error (faltan ingredientes) solo si no hay mensaje de éxito -->
+    <div th:if="${errorMessage != null && successMessage == null}" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="row">
+            <div class="col-2 text-center">
+                <i class="fa fa-exclamation-triangle fa-3x" aria-hidden="true"></i>
+            </div>
+            <div class="col-10">
+                <h5 th:text="${errorMessage}">¡Error al preparar la receta!</h5>
+            </div>
+        </div>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
 					<div th:case="${T(cl.ciisa.despensapp2.services.IngredientAvailability).COMPLETE}"
 						class="alert alert-success alert-dismissible fade show" role="alert">
 						<div class="row">
@@ -299,6 +328,8 @@
 								<h5>¡Fantastico! Tienes todos los ingredientes para preparar esta receta :)</h5>
 								<!-- Botón Preparar Receta -->
 								<form th:action="@{/recipes/{recipeId}/prepare(recipeId=${recipe.id})}" method="post">
+									<!-- Campo oculto para el token CSRF -->
+    								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 									<button type="submit" class="btn btn-primary">Preparar Receta</button>
 								</form>
 							</div>
