@@ -60,6 +60,7 @@
 						<div class="col-12">
 							<form class="form-horizontal m-t-20" id="loginform" method="post" role="form"
 								th:action="@{/login}">
+								<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 								 <!-- Mostrar mensaje de error si la autenticación falla -->
 								 <div th:if="${param.error}" class="alert alert-danger" role="alert">
 									Usuario o contraseña incorrecta.

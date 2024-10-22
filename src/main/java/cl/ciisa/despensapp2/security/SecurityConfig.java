@@ -28,7 +28,7 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain securityChain(HttpSecurity http) throws Exception {
 		http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()).and().authorizeHttpRequests()
-				.requestMatchers("/login","/users/register/**","/users/check-username/**","/resources/**", "/css/**", "/assets/**", "/dist/**", "/src/**").permitAll()
+				.requestMatchers("/login","/users/register/**","/users/check-username/**","/resources/**", "/css/**", "/assets/**", "/dist/**", "/src/**","/error").permitAll()
 				.anyRequest().authenticated().and().formLogin().loginPage("/login").defaultSuccessUrl("/")
 				.failureUrl("/login?error").permitAll().and().logout().logoutUrl("/logout").permitAll();
 
